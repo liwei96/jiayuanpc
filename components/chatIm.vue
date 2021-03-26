@@ -128,9 +128,9 @@
     </div> -->
     <!-- 聊天框 -->
      <transition name="slide-fade">
-        <div class="dragBox" v-if="visible" @mousedown="drag">
+        <div class="dragBox" v-if="visible">
           <div class="kehu_list">
-            <div class="zixun_tou">
+            <div class="zixun_tou" @mousedown="drag">
               <span class="iconfont iconzixun1"></span>
               <p>在线咨询</p>
             </div>
@@ -168,7 +168,7 @@
             </div>
           </div>
           <div class="content_list">
-            <div class="content_title">
+            <div class="content_title" @mousedown="drag">
               <span><i></i>{{logo_text}}-{{ online_name }}为您服务</span>
               <em class="iconfont iconchahao" @mousedown.stop="closebox"></em>
             </div>
@@ -2073,6 +2073,7 @@ export default {
                 line-height: 26px;
                 height: 26px;
                 width: 171px;
+                display: flex;
                 em {
                   font-size: 14px;
                   font-family: "Microsoft YaHei";
