@@ -1,117 +1,115 @@
 <template>
   <div>
     <Nuxt />
-     <!-- 聊天框 -->
-     <my-chatim ref="chat"></my-chatim>
-     <!-- 右侧导航栏 -->
-     <div class="right_fixed" v-show="right_fixed">
-          <ul class="right_li">
-            <li
-              @mouseenter="liu_hover"
-              :class="{ active: bg_flag.flag1 }"
-              @mouseleave="liu_leave"
-              @click="liuShow"
-            >
-              <img :src="img_bg.img_01" alt="" />
-              <span>留言</span>
-            </li>
+    <!-- 聊天框 -->
+    <my-chatim ref="chat"></my-chatim>
+    <!-- 右侧导航栏 -->
+    <div class="right_fixed" v-show="right_fixed">
+      <ul class="right_li">
+        <li
+          @mouseenter="liu_hover"
+          :class="{ active: bg_flag.flag1 }"
+          @mouseleave="liu_leave"
+          @click="liuShow"
+        >
+          <img :src="img_bg.img_01" alt="" />
+          <span>留言</span>
+        </li>
 
-            <li
-              :class="{ active: bg_flag.flag2 }"
-              @mouseenter="online_hover"
-              @mouseleave="online_leave"
-              class="zixun"
-              @mousedown.stop="showChatBox"
-              v-show="zixun_show"
-            >
-            <el-badge :is-dot="nav_show_hong" class="item">
-              <img :src="img_bg.img_02" alt="" />
-            </el-badge> 
-              <span>在线</span>
-              <em>咨询</em>
-            </li>
-            <li class="new_news"  v-show="xiaoxi_show" @click="showBox">
-                <el-badge :is-dot="nav_show_hong" class="item">
-                    <img src="~/assets/im/xiaoxi.gif" alt="" />
-                </el-badge> 
-                  <span>有新</span>
-                  <em>消息</em>
-            </li>
+        <li
+          :class="{ active: bg_flag.flag2 }"
+          @mouseenter="online_hover"
+          @mouseleave="online_leave"
+          class="zixun"
+          @mousedown.stop="showChatBox"
+          v-show="zixun_show"
+        >
+          <el-badge :is-dot="nav_show_hong" class="item">
+            <img :src="img_bg.img_02" alt="" />
+          </el-badge>
+          <span>在线</span>
+          <em>咨询</em>
+        </li>
+        <li class="new_news" v-show="xiaoxi_show" @click="showBox">
+          <el-badge :is-dot="nav_show_hong" class="item">
+            <img src="~/assets/im/xiaoxi.gif" alt="" />
+          </el-badge>
+          <span>有新</span>
+          <em>消息</em>
+        </li>
 
-            <li
-              @mouseover="saoma_hover"
-              :class="{ active: bg_flag.flag3 }"
-              @mouseleave="saoma_leave"
-            >
-              <img :src="img_bg.img_03" alt="" />
-              <span>扫码</span>
-              <em>拨号</em>
-            </li>
-            <li
-              @mouseover="xiaoChengXu_hover"
-              :class="{ active: bg_flag.flag4 }"
-              @mouseleave="xiaoChengXu_leave"
-            >
-              <img :src="img_bg.img_04" alt="" />
-              <span>小程</span>
-              <em>序</em>
-            </li>
-            <li
-              @mouseover="fan_hui"
-              :class="{ active: bg_flag.flag5 }"
-              @mouseleave="fan_leave"
-              class="up-btn"
-            >
-              <img :src="img_bg.img_05" alt="" />
-              <span>返回</span>
-              <em> 顶部</em>
-            </li>
+        <li
+          @mouseover="saoma_hover"
+          :class="{ active: bg_flag.flag3 }"
+          @mouseleave="saoma_leave"
+        >
+          <img :src="img_bg.img_03" alt="" />
+          <span>扫码</span>
+          <em>拨号</em>
+        </li>
+        <li
+          @mouseover="xiaoChengXu_hover"
+          :class="{ active: bg_flag.flag4 }"
+          @mouseleave="xiaoChengXu_leave"
+        >
+          <img :src="img_bg.img_04" alt="" />
+          <span>小程</span>
+          <em>序</em>
+        </li>
+        <li
+          @mouseover="fan_hui"
+          :class="{ active: bg_flag.flag5 }"
+          @mouseleave="fan_leave"
+          class="up-btn"
+        >
+          <img :src="img_bg.img_05" alt="" />
+          <span>返回</span>
+          <em> 顶部</em>
+        </li>
 
-              <div class="yewuyuan" v-show="yewu_show">
-                    <div class="top">
-                      <img src="~/assets/content_pro.png" alt="" class="head_img" />
-                      <div class="right_name">
-                        <h2>{{ye_box.name}} <i>新房咨询</i></h2>
-                        <p>从业咨询服务{{ye_box.year}}年</p>
-                      </div>
-                    </div>
-                    <div class="fenshu">
-                          <div class="fen_list">
-                            <strong>{{ye_box.user_num}} <i>人</i></strong>
-                            <p>服务客户</p>
-                          </div>
-                          <div class="fen_list">
-                            <strong>{{ye_box.look_num}} <i>次</i></strong>
-                            <p>带看客户</p>
-                          </div>
-                          <div class="fen_list">
-                            <strong>{{ye_box.rate}} <i>%</i></strong>
-                            <p>好评率</p>
-                          </div>
-                    </div>
-                    <div class="bottom">
-                      <button class="btn_zixun" @click="goChat">在线咨询</button>
-                      <button class="shao_zixuxn" @click="showZi">稍后咨询</button>
-                    </div>
-              </div>
-
-              <div class="jiazai" v-show="jiazai_show">
-                  <h4>加载中</h4>
-                  <img src="~/assets/dian.gif" alt="">
-              </div>
-
-            <div class="saoma_box bohao" v-show="saoma_flag">
-              <img :src="right_sao_url" alt class="erma" />
-              <span>微信扫码拨号</span>
+        <div class="yewuyuan" v-show="yewu_show">
+          <div class="top">
+            <img src="~/assets/content_pro.png" alt="" class="head_img" />
+            <div class="right_name">
+              <h2>{{ ye_box.name }} <i>新房咨询</i></h2>
+              <p>从业咨询服务{{ ye_box.year }}年</p>
             </div>
-
-            <div class="kaifa" v-show="waiting_show">
-              <img src="~/assets/waiting.png" alt />
+          </div>
+          <div class="fenshu">
+            <div class="fen_list">
+              <strong>{{ ye_box.user_num }} <i>人</i></strong>
+              <p>服务客户</p>
             </div>
-            
+            <div class="fen_list">
+              <strong>{{ ye_box.look_num }} <i>次</i></strong>
+              <p>带看客户</p>
+            </div>
+            <div class="fen_list">
+              <strong>{{ ye_box.rate }} <i>%</i></strong>
+              <p>好评率</p>
+            </div>
+          </div>
+          <div class="bottom">
+            <button class="btn_zixun" @click="goChat">在线咨询</button>
+            <button class="shao_zixuxn" @click="showZi">稍后咨询</button>
+          </div>
+        </div>
 
-          </ul>
-     </div>
+        <div class="jiazai" v-show="jiazai_show">
+          <h4>加载中</h4>
+          <img src="~/assets/dian.gif" alt="" />
+        </div>
+
+        <div class="saoma_box bohao" v-show="saoma_flag">
+          <img :src="right_sao_url" alt class="erma" />
+          <span>微信扫码拨号</span>
+        </div>
+
+        <div class="kaifa" v-show="waiting_show">
+          <img src="~/assets/waiting.png" alt />
+        </div>
+      </ul>
+    </div>
     <!-- 快速登录弹框 -->
     <transition name="slide-fade">
       <div class="login_box" v-show="loginTan">
@@ -141,7 +139,7 @@
               <input type="checkbox" v-model="checked" class="checkbox" />
               <p>
                 登录即表示您同意
-                <em @click="goXie">《{{logo_text}}用户服务协议》</em>
+                <em @click="goXie">《{{ logo_text }}用户服务协议》</em>
               </p>
             </div>
             <p class="tips" v-show="loginTips_show">{{ tips }}</p>
@@ -249,7 +247,7 @@
               />
               <p>
                 我已阅读并同意
-                <em @click="goXie">《{{logo_text}}用户协议》</em>
+                <em @click="goXie">《{{ logo_text }}用户协议》</em>
               </p>
             </div>
             <div class="tishi" v-show="baoming_tel.tishi_show">
@@ -374,7 +372,7 @@
           </div>
         </div>
         <p>
-          感谢您对{{logo_text}}的支持与关注，请将您遇到的问题或者建议反馈给
+          感谢您对{{ logo_text }}的支持与关注，请将您遇到的问题或者建议反馈给
           我们,也可以向我们了解更多房产相关信息
         </p>
         <div class="liu_content">
@@ -388,7 +386,12 @@
           >
           </el-input>
           <h2>联系方式</h2>
-          <input type="text" placeholder="输入您的手机号码" v-model="liu_tel_phone" maxlength="11"/>
+          <input
+            type="text"
+            placeholder="输入您的手机号码"
+            v-model="liu_tel_phone"
+            maxlength="11"
+          />
           <button @click="tiJiaoLiu">提交</button>
         </div>
       </div>
@@ -402,19 +405,27 @@
           <span class="iconfont iconchahao" @click="hideRules"></span>
         </h4>
         <div class="content_box">
-          <p>1、本次团购活动以分档累计补发的方案执行，通过{{logo_text}}网站成交该项目</p>
+          <p>
+            1、本次团购活动以分档累计补发的方案执行，通过{{
+              logo_text
+            }}网站成交该项目
+          </p>
           <p>
             2、结算时间：网签成功后次月20号发放。补发费用待该范围内的最后一套网签成功后次月20号发放
           </p>
           <p>
-            3、核算方式：由开发商或代理公司判定为{{logo_text}}平台客户即可享受这个优惠
+            3、核算方式：由开发商或代理公司判定为{{
+              logo_text
+            }}平台客户即可享受这个优惠
           </p>
           <p>
-            4、结算方式：提供已实名的支付宝账户给与您对接的{{logo_text}}咨询师，规定时间内会将优惠费用打至该账户
+            4、结算方式：提供已实名的支付宝账户给与您对接的{{
+              logo_text
+            }}咨询师，规定时间内会将优惠费用打至该账户
           </p>
           <p>
-            详细活动方案请致电{{logo_text}}客服电话：
-            <span>400-718-6686</span> 注：活动最终解释权归{{logo_text}}所有
+            详细活动方案请致电{{ logo_text }}客服电话：
+            <span>400-718-6686</span> 注：活动最终解释权归{{ logo_text }}所有
           </p>
         </div>
       </div>
@@ -451,10 +462,10 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
-import  chatIm from '~/components/chatIm.vue';
+import chatIm from "~/components/chatIm.vue";
 export default {
-  components:{
-      "my-chatim":chatIm
+  components: {
+    "my-chatim": chatIm,
   },
   data() {
     return {
@@ -537,80 +548,76 @@ export default {
         flag4: false,
         flag5: false,
       },
-       yewu_show: false,
-       nav_show_hong:true,
-       ye_box:{
-          name:'',
-          year:'',
-          look_num:'',
-          rate:'',
-          user_num:'',
+      yewu_show: false,
+      nav_show_hong: true,
+      ye_box: {
+        name: "",
+        year: "",
+        look_num: "",
+        rate: "",
+        user_num: "",
       },
-      zixun_show:true,
-      xiaoxi_show:false,
+      zixun_show: true,
+      xiaoxi_show: false,
 
-      project_id_im:'',
-      right_sao_url:'',
+      project_id_im: "",
+      right_sao_url: "",
 
-      saoma_flag:false,
-      waiting_show:false,
-      liu_tel_phone:'',
+      saoma_flag: false,
+      waiting_show: false,
+      liu_tel_phone: "",
 
+      saoma_telphone: "", //别的页面传过来的
+      jiazai_show: false,
 
-      saoma_telphone:'',   //别的页面传过来的
-      jiazai_show:false,
-       
-      right_fixed:false,
+      right_fixed: false,
 
-      logo_text:"家园"
-
-
+      logo_text: "家园",
     };
   },
   computed: {},
-  watch:{
-       $route: {
-        handler: function(val, oldVal){
-             //存在uuid,就给所有接口添加uuid;
-            let uuid = this.$route.query.uuid;
-            if (uuid && uuid!=="undefined" && uuid!=="null") {
-              console.log("设置", uuid);
-              this.$cookies.set("uuid", uuid);
-              axios.interceptors.request.use((config) => {
-                if (config.method == "post") {
-                  config.data = {
-                    ...config.data,
-                    uuid: uuid,
-                  };
-                } else if (config.method == "get") {
-                  config.params = {
-                    uuid: uuid,
-                    ...config.params,
-                  };
-                }
-                return config;
-              });
+  watch: {
+    $route: {
+      handler: function (val, oldVal) {
+        //存在uuid,就给所有接口添加uuid;
+        let uuid = this.$route.query.uuid;
+        if (uuid && uuid !== "undefined" && uuid !== "null") {
+          console.log("设置", uuid);
+          this.$cookies.set("uuid", uuid);
+          axios.interceptors.request.use((config) => {
+            if (config.method == "post") {
+              config.data = {
+                ...config.data,
+                uuid: uuid,
+              };
+            } else if (config.method == "get") {
+              config.params = {
+                uuid: uuid,
+                ...config.params,
+              };
             }
+            return config;
+          });
+        }
 
+        //注册新的客户信息
+        console.log(this.$refs.chat.websock, "websock");
+        if (this.$refs.chat.websock && this.$refs.chat.websock !== "") {
+          this.registerCustomer();
+        }
+      },
 
-            //注册新的客户信息
-            console.log( this.$refs.chat.websock,'websock');
-            if(this.$refs.chat.websock && this.$refs.chat.websock!==''){
-                 this.registerCustomer();
-            }
-        },
-
-        // 深度观察监听
-        deep: true
-      }
+      // 深度观察监听
+      deep: true,
+    },
   },
   beforeMount() {
-    this.getLayoutWidth()
+    this.getLayoutWidth();
     //发现www.jy1980域名时，跳分站  //审核用
     // let city_head_arr = this.$store.state.city_list;
     // let has_city = this.$cookies.get("city_id");
     // let str = "www.jy1980.com";
-     let host = window.location.host;
+    let host = window.location.host;
     // if (host.indexOf(str) !== -1) {
     //   if (!city_head_arr.hasOwnProperty(has_city)) {
     //   } else {
@@ -618,13 +625,11 @@ export default {
     //       "http://" + city_head_arr[has_city] + ".jy1980.com";
     //   }
     // }
-   
-  //https 跳转到http
-    if(host.indexOf('https://')!==-1){
-        window.location.href ="http://www.jy1980.com";
+
+    //https 跳转到http
+    if (host.indexOf("https://") !== -1) {
+      window.location.href = "http://www.jy1980.com";
     }
-
-
 
     if (host.indexOf("xuzhou") != -1) {
       //包含徐州
@@ -686,55 +691,52 @@ export default {
       sessionStorage.setItem("city_id", 181);
       this.$cookies.set("city_id", 181);
       sessionStorage.setItem("city_name", "肇庆市");
-    }else if ((host.indexOf("shangrao") != -1) == true) {
+    } else if ((host.indexOf("shangrao") != -1) == true) {
       //包含上饶市
       sessionStorage.setItem("city_id", 216);
       this.$cookies.set("city_id", 216);
       sessionStorage.setItem("city_name", "上饶市");
-    }else if ((host.indexOf("nanchang") != -1) == true) {
+    } else if ((host.indexOf("nanchang") != -1) == true) {
       //包含南昌市
       sessionStorage.setItem("city_id", 229);
       this.$cookies.set("city_id", 229);
       sessionStorage.setItem("city_name", "南昌市");
-    }else if ((host.indexOf("langfang") != -1) == true) {
+    } else if ((host.indexOf("langfang") != -1) == true) {
       //包含廊坊市
       sessionStorage.setItem("city_id", 242);
       this.$cookies.set("city_id", 242);
       sessionStorage.setItem("city_name", "廊坊市");
-    }else if ((host.indexOf("nantong") != -1) == true) {
+    } else if ((host.indexOf("nantong") != -1) == true) {
       //包含南通市
       sessionStorage.setItem("city_id", 253);
       this.$cookies.set("city_id", 253);
       sessionStorage.setItem("city_name", "南通市");
-    }else if ((host.indexOf("yichang") != -1) == true) {
+    } else if ((host.indexOf("yichang") != -1) == true) {
       //包含南通市
       sessionStorage.setItem("city_id", 191);
       this.$cookies.set("city_id", 191);
       sessionStorage.setItem("city_name", "宜昌市");
     }
 
-
-
-        let  mine = this.$store.state.style_mine;
-        if(mine==1){ //易得房样式
-            this.logo_text = "易得房";
-        }else if(mine==2){ //家园样式
-           this.logo_text = "家园";
-        }
-
-
+    let mine = this.$store.state.style_mine;
+    if (mine == 1) {
+      //易得房样式
+      this.logo_text = "易得房";
+    } else if (mine == 2) {
+      //家园样式
+      this.logo_text = "家园";
+    }
   },
   mounted() {
-      let path_name = this.$route.name;
-      console.log(path_name,'path_name');
+    let path_name = this.$route.name;
+    console.log(path_name, "path_name");
 
-      if(path_name=="jingjipeople"){
-         this.right_fixed = false;
-      }else{
-         this.right_fixed = true;
-      }
+    if (path_name == "jingjipeople") {
+      this.right_fixed = false;
+    } else {
+      this.right_fixed = true;
+    }
 
-     
     //百度统计
     var _hmt = _hmt || [];
     (function () {
@@ -744,27 +746,24 @@ export default {
       s.parentNode.insertBefore(hm, s);
     })();
 
-
     //百度自动回复
-    (function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-   })();
+    (function () {
+      var bp = document.createElement("script");
+      var curProtocol = window.location.protocol.split(":")[0];
+      if (curProtocol === "https") {
+        bp.src = "https://zz.bdstatic.com/linksubmit/push.js";
+      } else {
+        bp.src = "http://push.zhanzhang.baidu.com/push.js";
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
 
-  //360 自动提交
-  // (function(){
-  // var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
-  // document.write('<script src="' + src + '" id="sozz"><\/script>');
-  // })();
-
+    //360 自动提交
+    // (function(){
+    // var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+    // document.write('<script src="' + src + '" id="sozz"><\/script>');
+    // })();
 
     let ip = ip_arr["ip"];
     this.$cookies.set("ip", ip);
@@ -781,7 +780,7 @@ export default {
       console.log("页面被刷新！");
       let uuid = this.$route.query.uuid;
       this.$cookies.set("uuid", uuid);
-      if (uuid && uuid!=="undefined" && uuid!=="null") {
+      if (uuid && uuid !== "undefined" && uuid !== "null") {
         axios.interceptors.request.use((config) => {
           if (config.method == "post") {
             config.data = {
@@ -802,7 +801,7 @@ export default {
       let uuid = this.$route.query.uuid;
       this.$cookies.set("uuid", uuid);
       localStorage.setItem("uuid", uuid);
-      if (uuid && uuid!=="undefined" && uuid!=="null") {
+      if (uuid && uuid !== "undefined" && uuid !== "null") {
         axios.interceptors.request.use((config) => {
           if (config.method == "post") {
             config.data = {
@@ -819,16 +818,16 @@ export default {
         });
       } else {
         function num() {
-            var timestamp = Date.parse(new Date());
-            var $chars =
-              "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678"; /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-            var maxPos = $chars.length;
-            var pwd = "";
-            let i = 0;
-            for (i = 0; i < 12; i++) {
-              pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-            }
-            timestamp = pwd + timestamp;
+          var timestamp = Date.parse(new Date());
+          var $chars =
+            "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678"; /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+          var maxPos = $chars.length;
+          var pwd = "";
+          let i = 0;
+          for (i = 0; i < 12; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+          }
+          timestamp = pwd + timestamp;
           return timestamp;
         }
         var lsnm = num();
@@ -850,256 +849,252 @@ export default {
           }
           return config;
         });
-        
       }
     }
-    
-      //开启websoocket
-    if(this.$refs.chat.websock && this.$refs.chat.websock!==''){
-       console.log('开启');
-       this.$refs.chat.initWebSocket();
+
+    //开启websoocket
+    if (this.$refs.chat.websock && this.$refs.chat.websock !== "") {
+      console.log("开启");
+      this.$refs.chat.initWebSocket();
     }
-    
-      //回到顶部
-    $('.up-btn').click(function(){
-        $('html , body').animate({scrollTop: 0},'slow');  
-    })
+
+    //回到顶部
+    $(".up-btn").click(function () {
+      $("html , body").animate({ scrollTop: 0 }, "slow");
+    });
   },
   methods: {
-    getLayoutWidth(){
-       //跳转手机端   
-          let route_name = this.$route.name;
-      if(route_name !=="index" && route_name !=="content-id" && route_name !=="article-id"){
-          let host = window.location.host;
-          var newhost = host.split(".")[0];
-          let width=document.body.clientWidth;
-            window.onresize=()=>{
-                if(width<490){
-                      if(host.indexOf('www.jy1980.com') != -1){
-                          window.location.href="http://m.jy1980.com/hangzhou"
-                      }else if(host.indexOf('www.edefang.net') != -1){
-                          window.location.href="http://mobile.edefang.net/hangzhou"
-                      }else if(host.indexOf(newhost+'.jy1980.com') != -1){
-                          window.location.href="http://m.jy1980.com/"+newhost
-                      }else if(host.indexOf(newhost+'.edefang.net') != -1){
-                          window.location.href="http://mobile.edefang.net/"+newhost
-                      }
-                }
+    getLayoutWidth() {
+      //跳转手机端
+      let route_name = this.$route.name;
+      if (
+        route_name !== "index" &&
+        route_name !== "content-id" &&
+        route_name !== "article-id"
+      ) {
+        let host = window.location.host;
+        var newhost = host.split(".")[0];
+        let width = document.body.clientWidth;
+        window.onresize = () => {
+          if (width < 490) {
+            if (host.indexOf("www.jy1980.com") != -1) {
+              window.location.href = "http://m.jy1980.com/hangzhou";
+            } else if (host.indexOf("www.edefang.net") != -1) {
+              window.location.href = "http://mobile.edefang.net/hangzhou";
+            } else if (host.indexOf(newhost + ".jy1980.com") != -1) {
+              window.location.href = "http://m.jy1980.com/" + newhost;
+            } else if (host.indexOf(newhost + ".edefang.net") != -1) {
+              window.location.href = "http://mobile.edefang.net/" + newhost;
             }
-
-          let liu_width=document.body.clientWidth;
-          if(liu_width<490){
-                if(host.indexOf('www.jy1980.com') != -1){
-                    window.location.href="http://m.jy1980.com/hangzhou"
-                }else if(host.indexOf('www.edefang.net') != -1){
-                    window.location.href="http://mobile.edefang.net/hangzhou"
-                }else if(host.indexOf(newhost+'.jy1980.com') != -1){
-                    window.location.href="http://m.jy1980.com/"+newhost
-                }else if(host.indexOf(newhost+'.edefang.net') != -1){
-                    window.location.href="http://mobile.edefang.net/"+newhost
-                }
           }
+        };
+
+        let liu_width = document.body.clientWidth;
+        if (liu_width < 490) {
+          if (host.indexOf("www.jy1980.com") != -1) {
+            window.location.href = "http://m.jy1980.com/hangzhou";
+          } else if (host.indexOf("www.edefang.net") != -1) {
+            window.location.href = "http://mobile.edefang.net/hangzhou";
+          } else if (host.indexOf(newhost + ".jy1980.com") != -1) {
+            window.location.href = "http://m.jy1980.com/" + newhost;
+          } else if (host.indexOf(newhost + ".edefang.net") != -1) {
+            window.location.href = "http://mobile.edefang.net/" + newhost;
+          }
+        }
       }
     },
-      registerCustomer(){
-            let  project = '';
-            let route_name = this.$route.name;
-            let uuid = localStorage.getItem('uuid');
-            let id = this.$route.params.id;
-            if(id && id!=''){
-                  let match = id.match(/\d+/);
-                  id= match[0];
-            }
-            if(route_name=="content-id"){
-                    project =id;
-            }else if(route_name=="loudetail-id"){
-                    project =id;
-            }else if(route_name=="prohuxing-id"){
-                    project =id;
-            }else if(route_name=="propic-id"){
-                    project =id;
-            }else if(route_name=="prodong-id"){
-                    project =id;
-            }else if(route_name=="prowenda-id"){
-                    project =id;
-            }else if(route_name=="prodian-id"){
-                    project =id;
-            }else if(route_name=="loudianpage-id"){
-                    project =this.project_id_im;
-            }
-            else if(route_name=="prowenpage-id"){
-                    project =this.project_id_im;
-            }
-            else if(route_name=="loudongpage-id"){
-                    project =this.project_id_im;
-            }else{
-                    project = 0;
-            }
-            let city = this.$cookies.get('city_id');
-            let ip = ip_arr["ip"];
-            let data_shang ={
-                    controller:"Info",
-                    action:"register",
-                    params:{"city":city,
-                    project:project,
-                    ip:ip,
-                    url:window.location.host,
-                    uuid:uuid,
-                    host:window.location.host}
-                    };
-          this.$refs.chat.websocketsend(JSON.stringify(data_shang));
-      },
-      tiJiaoLiu(){
-          let phone= this.liu_tel_phone;
-          var other = sessionStorage.getItem("other");
-          var kid = sessionStorage.getItem("kid");
-          var ip = ip_arr["ip"];
-          var city = this.$cookies.get('city_id');
-          var pattern = new RegExp("^1[345678]\\d{9}$");
-          let  question = this.liuyan_box.textarea;
-                  let  project = '';
-                  let route_name = this.$route.name;
-                  let id = this.$route.params.id;
-                  // var other = sessionStorage.getItem("other");
-                  // var kid = sessionStorage.getItem("kid");
-                  if(id && id!==""){
-                       let match = id.match(/\d+/);
-                      id= match[0];
-                  }
-                  if(route_name=="content-id"){
-                         project =id;
-                  }else if(route_name=="loudetail-id"){
-                         project =id;
-                  }else if(route_name=="prohuxing-id"){
-                         project =id;
-                  }else if(route_name=="propic-id"){
-                         project =id;
-                  }else if(route_name=="prodong-id"){
-                         project =id;
-                  }else if(route_name=="prowenda-id"){
-                         project =id;
-                  }else if(route_name=="prodian-id"){
-                         project =id;
-                  }else if(route_name=="loudianpage-id"){
-                         project =this.$parent.project_id_im;
-                  }
-                  else if(route_name=="prowenpage-id"){
-                         project =this.$parent.project_id_im;
-                  }
-                  else if(route_name=="loudongpage-id"){
-                         project =this.$parent.project_id_im;
-                  }else{
-                         project ='';
-                  }
+    registerCustomer() {
+      let project = "";
+      let route_name = this.$route.name;
+      let uuid = localStorage.getItem("uuid");
+      let id = this.$route.params.id;
+      if (id && id != "") {
+        let match = id.match(/\d+/);
+        id = match[0];
+      }
+      if (route_name == "content-id") {
+        project = id;
+      } else if (route_name == "loudetail-id") {
+        project = id;
+      } else if (route_name == "prohuxing-id") {
+        project = id;
+      } else if (route_name == "propic-id") {
+        project = id;
+      } else if (route_name == "prodong-id") {
+        project = id;
+      } else if (route_name == "prowenda-id") {
+        project = id;
+      } else if (route_name == "prodian-id") {
+        project = id;
+      } else if (route_name == "loudianpage-id") {
+        project = this.project_id_im;
+      } else if (route_name == "prowenpage-id") {
+        project = this.project_id_im;
+      } else if (route_name == "loudongpage-id") {
+        project = this.project_id_im;
+      } else {
+        project = 0;
+      }
+      let city = this.$cookies.get("city_id");
+      let ip = ip_arr["ip"];
+      let data_shang = {
+        controller: "Info",
+        action: "register",
+        params: {
+          city: city,
+          project: project,
+          ip: ip,
+          url: window.location.host,
+          uuid: uuid,
+          host: window.location.host,
+        },
+      };
+      this.$refs.chat.websocketsend(JSON.stringify(data_shang));
+    },
+    tiJiaoLiu() {
+      let phone = this.liu_tel_phone;
+      var other = sessionStorage.getItem("other");
+      var kid = sessionStorage.getItem("kid");
+      var ip = ip_arr["ip"];
+      var city = this.$cookies.get("city_id");
+      var pattern = new RegExp("^1[345678]\\d{9}$");
+      let question = this.liuyan_box.textarea;
+      let project = "";
+      let route_name = this.$route.name;
+      let id = this.$route.params.id;
+      // var other = sessionStorage.getItem("other");
+      // var kid = sessionStorage.getItem("kid");
+      if (id && id !== "") {
+        let match = id.match(/\d+/);
+        id = match[0];
+      }
+      if (route_name == "content-id") {
+        project = id;
+      } else if (route_name == "loudetail-id") {
+        project = id;
+      } else if (route_name == "prohuxing-id") {
+        project = id;
+      } else if (route_name == "propic-id") {
+        project = id;
+      } else if (route_name == "prodong-id") {
+        project = id;
+      } else if (route_name == "prowenda-id") {
+        project = id;
+      } else if (route_name == "prodian-id") {
+        project = id;
+      } else if (route_name == "loudianpage-id") {
+        project = this.$parent.project_id_im;
+      } else if (route_name == "prowenpage-id") {
+        project = this.$parent.project_id_im;
+      } else if (route_name == "loudongpage-id") {
+        project = this.$parent.project_id_im;
+      } else {
+        project = "";
+      }
 
-
-
-
-
-
-          if(question!==''){
-                  if(phone==''){
-                        this.$message.error('手机号不能为空');
-                  }else if(!pattern.test(phone)){
-                      this.$message.error('请输入正确的手机号');
-                  }else{
-                      axios.post('/front/flow/sign',{
-                          tel: phone,
-                          ip: ip,
-                          page: 10, //家园PC端
-                          project: project,
-                          city: city,
-                          position: 6,
-                          remark: `留言：${this.liuyan_box.textarea}`, //请填写位置对应的名，如“详细楼盘信息”，如果是咨询详细户型请加上户型名
-                          source: "线上推广1",
-                          other: other,
-                          kid: kid,
-                          name: "", //客户姓名，没有就不填
-                      }).then(res=>{
-                          if(res.data.code==200){
-                              this.$message.success(res.data.message);
-                              this.liuyan_box.liu_flag =false;
-                          }
-                      }).catch(error=>{
-                        console.log(error)
-                      })
-                  }
-           }else{
-              this.$message.error('留言内容不能为空');
-          }
-
-
-      },
-     showSaoMa(){
+      if (question !== "") {
+        if (phone == "") {
+          this.$message.error("手机号不能为空");
+        } else if (!pattern.test(phone)) {
+          this.$message.error("请输入正确的手机号");
+        } else {
+          axios
+            .post("/front/flow/sign", {
+              tel: phone,
+              ip: ip,
+              page: 10, //家园PC端
+              project: project,
+              city: city,
+              position: 6,
+              remark: `留言：${this.liuyan_box.textarea}`, //请填写位置对应的名，如“详细楼盘信息”，如果是咨询详细户型请加上户型名
+              source: "线上推广1",
+              other: other,
+              kid: kid,
+              name: "", //客户姓名，没有就不填
+            })
+            .then((res) => {
+              if (res.data.code == 200) {
+                this.$message.success(res.data.message);
+                this.liuyan_box.liu_flag = false;
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } else {
+        this.$message.error("留言内容不能为空");
+      }
+    },
+    showSaoMa() {
       this.saoma_flag = true;
-      this.right_sao_url="http://ll.edefang.net//index/weichat/code?channel=2"
+      this.right_sao_url =
+        "http://ll.edefang.net//index/weichat/code?channel=2";
     },
-    showZi(){
-         console.log( this.$refs.chat);
-        this.yewu_show = false;
-        this.$refs.chat.visible =false;
+    showZi() {
+      console.log(this.$refs.chat);
+      this.yewu_show = false;
+      this.$refs.chat.visible = false;
     },
-    liuShow(){
-         this.liuyan_box.liu_flag = true;
-         this.$refs.chat.visible =false;
+    liuShow() {
+      this.liuyan_box.liu_flag = true;
+      this.$refs.chat.visible = false;
     },
     //右侧导航栏部分
-    showChatBox(){
+    showChatBox() {
       // this.liuyan_box.liu_flag = false;
-       if(this.$refs.chat.websock){
-              this.$refs.chat.visible = true;
-              this.$refs.chat.tootip_show = false;
-              this.jiazai_show =false;
-              this.yewu_show = false;
-                      var  that = this;
-                      let  actived_id = this.$refs.chat.active_id;
-                      if(actived_id){
-                              //     //获取首页面加载信息
-                            let uuid = localStorage.getItem('uuid');
-                            let  data = {
-                            "controller":"chat",
-                            "action":"index",
-                            "params":{
-                              "staff":actived_id,
-                              "customer":uuid,
-                              "host":window.location.host
-                            }}
-                            that.$refs.chat.websocketsend(JSON.stringify(data));
-                      }
-              //此时再注册一次确保，弹框显示时，没有业务员接洽时，调用自动回复
-                          let  uuid = localStorage.getItem('uuid');
-                            setTimeout(function(){
-                               
-                                let data =  {
-                                  "controller":"chat",
-                                  "action":"auto",
-                                  "params":{
-                                  "uuid":uuid,
-                                  "host":window.location.host}}
-                               that.$refs.chat.websocketsend(JSON.stringify(data));
-                            },1000)
-                           
-                         
-                         
-                      let  data_staff_list ={
-                          controller:"Staff",
-                          action:"lists",
-                          params:{
-                            "uuid":uuid,
-                            "host":window.location.host}
-                      }
-                      that.$refs.chat.websocketsend(JSON.stringify(data_staff_list));
+      if (this.$refs.chat.websock) {
+        this.$refs.chat.visible = true;
+        this.$refs.chat.tootip_show = false;
+        this.jiazai_show = false;
+        this.yewu_show = false;
+        var that = this;
+        let actived_id = this.$refs.chat.active_id;
+        if (actived_id) {
+          //     //获取首页面加载信息
+          let uuid = localStorage.getItem("uuid");
+          let data = {
+            controller: "chat",
+            action: "index",
+            params: {
+              staff: actived_id,
+              customer: uuid,
+              host: window.location.host,
+            },
+          };
+          that.$refs.chat.websocketsend(JSON.stringify(data));
+        }
+        //此时再注册一次确保，弹框显示时，没有业务员接洽时，调用自动回复
+        let uuid = localStorage.getItem("uuid");
+        setTimeout(function () {
+          let data = {
+            controller: "chat",
+            action: "auto",
+            params: {
+              uuid: uuid,
+              host: window.location.host,
+            },
+          };
+          that.$refs.chat.websocketsend(JSON.stringify(data));
+        }, 1000);
 
-
-             }else{
-                this.jiazai_show =true;
-                console.log('未连接');
-                let that =this;
-                setTimeout(function(){
-                    that.showChatBox();
-                },2000)
-             }
-               
+        let data_staff_list = {
+          controller: "Staff",
+          action: "lists",
+          params: {
+            uuid: uuid,
+            host: window.location.host,
+          },
+        };
+        that.$refs.chat.websocketsend(JSON.stringify(data_staff_list));
+      } else {
+        this.jiazai_show = true;
+        console.log("未连接");
+        let that = this;
+        setTimeout(function () {
+          that.showChatBox();
+        }, 2000);
+      }
     },
     liu_hover() {
       this.img_bg.img_01 = require("~/assets/im/chat.png");
@@ -1110,55 +1105,48 @@ export default {
       this.bg_flag.flag1 = false;
     },
     online_hover() {
-       this.bg_flag.flag2 = true;
-       this.img_bg.img_02 = require("~/assets/im/online.png");
+      this.bg_flag.flag2 = true;
+      this.img_bg.img_02 = require("~/assets/im/online.png");
     },
     online_leave() {
       this.img_bg.img_02 = require("~/assets/im/online_liang.png");
       this.bg_flag.flag2 = false;
     },
-     saoma_hover() {
+    saoma_hover() {
       this.img_bg.img_03 = require("~/assets/im/sao.png");
       this.bg_flag.flag3 = true;
-      this.saoma_flag =true;
-      
+      this.saoma_flag = true;
 
       let route_name = this.$route.name;
-      if(route_name=="content-id"){
-          this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="loudetail-id"){
-          this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="prohuxing-id"){
-             this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="propic-id"){
-              this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="prodong-id"){
-             this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="prowenda-id"){
-            this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="prodian-id"){
-          this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else if(route_name=="loudianpage-id"){
-          this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
+      if (route_name == "content-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "loudetail-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "prohuxing-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "propic-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "prodong-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "prowenda-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "prodian-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "loudianpage-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "prowenpage-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else if (route_name == "loudongpage-id") {
+        this.right_sao_url = `http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`;
+      } else {
+        this.right_sao_url =
+          "http://ll.edefang.net//index/weichat/code?channel=2";
       }
-      else if(route_name=="prowenpage-id"){
-         this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }
-      else if(route_name=="loudongpage-id"){
-          this.right_sao_url=`http://ll.edefang.net//index/weichat/code?tel=${this.saoma_telphone}`
-      }else{
-        this.right_sao_url="http://ll.edefang.net//index/weichat/code?channel=2"
-      }
-
-
-
-     
-
     },
     saoma_leave() {
       this.img_bg.img_03 = require("~/assets/im/sao_hei.png");
       this.bg_flag.flag3 = false;
-      this.saoma_flag =false;
+      this.saoma_flag = false;
     },
     xiaoChengXu_hover() {
       this.img_bg.img_04 = require("~/assets/im/xiao.png");
@@ -1178,31 +1166,28 @@ export default {
       this.img_bg.img_05 = require("~/assets/im/fan_top_hei.png");
       this.bg_flag.flag5 = false;
     },
-    goChat(){
-        this.$refs.chat.visible = true;
-        this.yewu_show =false;
-        this.zixun_show =true;
-        this.xiaoxi_show = false;
+    goChat() {
+      this.$refs.chat.visible = true;
+      this.yewu_show = false;
+      this.zixun_show = true;
+      this.xiaoxi_show = false;
     },
-    showBox(){
-         console.log('1111');
-        this.$refs.chat.visible = true;
-        this.xiaoxi_show =false;
-        this.zixun_show =true;
-          let  uuid = localStorage.getItem('uuid');
-           let  that = this;
-         if(this.$refs.chat.websock){
-                     let  data_staff_list ={
-                          controller:"Staff",
-                          action:"lists",
-                          params:{"uuid":uuid,
-                          "host":window.location.host}
-                      }
-                      that.$refs.chat.websocketsend(JSON.stringify(data_staff_list));
-         }
+    showBox() {
+      console.log("1111");
+      this.$refs.chat.visible = true;
+      this.xiaoxi_show = false;
+      this.zixun_show = true;
+      let uuid = localStorage.getItem("uuid");
+      let that = this;
+      if (this.$refs.chat.websock) {
+        let data_staff_list = {
+          controller: "Staff",
+          action: "lists",
+          params: { uuid: uuid, host: window.location.host },
+        };
+        that.$refs.chat.websocketsend(JSON.stringify(data_staff_list));
+      }
     },
-
-
 
     goXie() {
       this.$router.push("/we/fuwu");
@@ -1216,7 +1201,7 @@ export default {
       // });
       let _this = this;
       // setTimeout(function () {
-        _this.hengda_flag = false;
+      _this.hengda_flag = false;
       // }, 600);
     },
     hengda_id_save() {
@@ -1262,7 +1247,7 @@ export default {
       // });
       let _this = this;
       // setTimeout(function () {
-        _this.liuyan_box.liu_flag = false;
+      _this.liuyan_box.liu_flag = false;
       // }, 600);
     },
     TuYanShou() {
@@ -1533,7 +1518,7 @@ export default {
       // });
       let _this = this;
       // let timer = setTimeout(function () {
-        _this.baoming_tel.telflag = false;
+      _this.baoming_tel.telflag = false;
       // }, 600);
     },
     closeTelTan_y() {
@@ -1543,7 +1528,7 @@ export default {
       // });
       let _this = this;
       // setTimeout(function () {
-        _this.erma_tel.yan_flag = false;
+      _this.erma_tel.yan_flag = false;
       // }, 600);
     },
     goLogin() {
@@ -1816,15 +1801,14 @@ export default {
         color: #7d7d80;
         line-height: 12px;
       }
-     
     }
-    .new_news{
-        span{
-              color: #FF9A26;
-        }
-        em{
-             color: #FF9A26;
-        }
+    .new_news {
+      span {
+        color: #ff9a26;
+      }
+      em {
+        color: #ff9a26;
+      }
     }
     .zixun {
       span {
@@ -1843,194 +1827,192 @@ export default {
         color: #fff;
       }
     }
-    .yellow{
-       color: #FF9A26;
+    .yellow {
+      color: #ff9a26;
       span {
-        color:#FF9A26;
+        color: #ff9a26;
       }
       em {
-        color:#FF9A26;
+        color: #ff9a26;
       }
     }
   }
-   .yewuyuan {
-        position: absolute;
-        right: 47px;
-        bottom: 155px;
-        width: 288px;
-        height: 157px;
-        background: #ffffff;
-        box-shadow: 0px 0px 18px 0px rgba(52, 71, 87, 0.24);
-        border-radius: 2px;
-        padding: 24px 28px 24px 24px;
-        .top {
-          .head_img {
-            width: 40px;
-            height: 40px;
-            border-radius: 20px;
-            float: left;
-            margin-right: 20px;
-            margin-bottom: 0px;
-          }
-          .right_name {
-            h2 {
-              font-size: 18px;
-              font-family: "Microsoft YaHei";
-              font-weight: bold;
-              color: #1f1f1f;
-              display: flex;
-              line-height: 18px;
-              i {
-                width: 60px;
-                height: 18px;
-                background: #f2f8ff;
-                border-radius: 2px;
-                line-height: 18px;
-                font-size: 12px;
-                font-family: "Microsoft YaHei";
-                font-weight: 400;
-                color: #2284f4;
-                margin-left: 10px;
-              }
-            }
-            p {
-              font-size: 14px;
-              font-family: "Microsoft YaHei";
-              font-weight: 400;
-              color: #646466;
-              line-height: 14px;
-              margin-top: 8px;
-            }
-          }
-        }
-        .fenshu {
+  .yewuyuan {
+    position: absolute;
+    right: 47px;
+    bottom: 155px;
+    width: 288px;
+    height: 157px;
+    background: #ffffff;
+    box-shadow: 0px 0px 18px 0px rgba(52, 71, 87, 0.24);
+    border-radius: 2px;
+    padding: 24px 28px 24px 24px;
+    .top {
+      .head_img {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 0px;
+      }
+      .right_name {
+        h2 {
+          font-size: 18px;
+          font-family: "Microsoft YaHei";
+          font-weight: bold;
+          color: #1f1f1f;
           display: flex;
-          justify-content: space-between;
-          margin-top: 14px;
-          .fen_list {
-            float: left;
-            width: 96px;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            strong {
-              font-size: 20px;
-              font-family: "Microsoft YaHei";
-              font-weight: bold;
-              color: #121212;
-              i {
-                font-size: 12px;
-                font-family: "Microsoft YaHei";
-                font-weight: 400;
-                color: #121212;
-              }
-            }
-            p {
-              font-size: 14px;
-              font-family: "Microsoft YaHei";
-              font-weight: 400;
-              color: #646466;
-            }
-          }
-        }
-        .bottom {
-          .btn_zixun {
-            width: 100px;
-            height: 36px;
-            background: linear-gradient(270deg, #20c466, #3fd6a7);
+          line-height: 18px;
+          i {
+            width: 60px;
+            height: 18px;
+            background: #f2f8ff;
             border-radius: 2px;
-            font-size: 14px;
+            line-height: 18px;
+            font-size: 12px;
             font-family: "Microsoft YaHei";
             font-weight: 400;
-            color: #ffffff;
-            border: none;
-            margin-top: 24px;
-            margin-right: 20px;
-            cursor: pointer;
-          }
-          .shao_zixuxn {
-            width: 100px;
-            height: 36px;
-            background: #f0f7f3;
-            border: 1px solid #3ea66a;
-            border-radius: 2px;
-
-            font-size: 14px;
-            font-family: "Microsoft YaHei";
-            font-weight: 400;
-            color: #3ea56a;
-            margin-top: 24px;
-            cursor: pointer;
-          }
-        }
-      }
-
-   .jiazai{
-     width: 100px;
-     height: 40px;
-     background: rgba(0, 0, 0, 0.4);
-     border-radius:3px;
-     position: absolute;
-     right: 40px;
-     bottom: 270px;
-      h4{
-          font-size: 12px;
-          color: #fff;
-          font-weight:normal;
-          line-height: 24px;
-          text-align: center;
-      }
-      img{
-           position: absolute;
-           transform: translate(-50%,-50%);
-           left: 50%;
-           top: 28px;
-      }
-   }   
-  .saoma_box{
-        width: 148px;
-        height: 120px;
-        background: rgba(255, 255, 255, 1);
-        box-shadow: 0px 0px 14px 0px rgba(6, 0, 1, 0.08);
-        position: absolute;
-        right: 40px;
-        bottom: 145px;
-        display: block;
-        .erma{
-             width: 100px;
-            height: 100px;
-            display: block;
+            color: #2284f4;
             margin-left: 10px;
-            margin-top: 10px;
-            float: left;
+          }
         }
-        span{
-             -webkit-writing-mode: vertical-rl;
-            writing-mode: tb-rl;
-            writing-mode: vertical-rl;
-            text-align: justify;
-            float: left;
-            font-size: 14px;
+        p {
+          font-size: 14px;
+          font-family: "Microsoft YaHei";
+          font-weight: 400;
+          color: #646466;
+          line-height: 14px;
+          margin-top: 8px;
+        }
+      }
+    }
+    .fenshu {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      .fen_list {
+        float: left;
+        width: 96px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        strong {
+          font-size: 20px;
+          font-family: "Microsoft YaHei";
+          font-weight: bold;
+          color: #121212;
+          i {
+            font-size: 12px;
             font-family: "Microsoft YaHei";
             font-weight: 400;
-            color: rgba(51, 51, 51, 1);
-            line-height: 29px;
-            margin-top: 19px;
+            color: #121212;
+          }
         }
-  }
-  .kaifa{
-      position: absolute;
-      bottom: 210px;
-      right: 40px;
-      bottom: 52px;
-      img{
-           width: 220px;
-           height: 140px;
+        p {
+          font-size: 14px;
+          font-family: "Microsoft YaHei";
+          font-weight: 400;
+          color: #646466;
+        }
       }
+    }
+    .bottom {
+      .btn_zixun {
+        width: 100px;
+        height: 36px;
+        background: linear-gradient(270deg, #20c466, #3fd6a7);
+        border-radius: 2px;
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        font-weight: 400;
+        color: #ffffff;
+        border: none;
+        margin-top: 24px;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+      .shao_zixuxn {
+        width: 100px;
+        height: 36px;
+        background: #f0f7f3;
+        border: 1px solid #3ea66a;
+        border-radius: 2px;
+
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        font-weight: 400;
+        color: #3ea56a;
+        margin-top: 24px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .jiazai {
+    width: 100px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    position: absolute;
+    right: 40px;
+    bottom: 270px;
+    h4 {
+      font-size: 12px;
+      color: #fff;
+      font-weight: normal;
+      line-height: 24px;
+      text-align: center;
+    }
+    img {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 28px;
+    }
+  }
+  .saoma_box {
+    width: 148px;
+    height: 120px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 14px 0px rgba(6, 0, 1, 0.08);
+    position: absolute;
+    right: 40px;
+    bottom: 145px;
+    display: block;
+    .erma {
+      width: 100px;
+      height: 100px;
+      display: block;
+      margin-left: 10px;
+      margin-top: 10px;
+      float: left;
+    }
+    span {
+      -webkit-writing-mode: vertical-rl;
+      writing-mode: tb-rl;
+      writing-mode: vertical-rl;
+      text-align: justify;
+      float: left;
+      font-size: 14px;
+      font-family: "Microsoft YaHei";
+      font-weight: 400;
+      color: rgba(51, 51, 51, 1);
+      line-height: 29px;
+      margin-top: 19px;
+    }
+  }
+  .kaifa {
+    position: absolute;
+    bottom: 210px;
+    right: 40px;
+    bottom: 52px;
+    img {
+      width: 220px;
+      height: 140px;
+    }
   }
 }
-
-
 
 /*-- 快速登录弹框 --*/
 .login_box {
@@ -2268,9 +2250,9 @@ export default {
           color: #fff;
         }
       }
-      .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
     .liu_top_kaipan {
@@ -2396,9 +2378,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
     .newcheng_jia {
@@ -2468,9 +2450,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
 
@@ -2706,9 +2688,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
     .liu_top_kaipan {
@@ -2834,9 +2816,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
     .newcheng_jia {
@@ -2906,9 +2888,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
 
@@ -3059,9 +3041,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
     }
     p {
@@ -3219,9 +3201,9 @@ export default {
           color: #fff;
         }
       }
-       .guan:hover{
-          transform: rotate(90deg);
-          transition:all 0.6s ;
+      .guan:hover {
+        transform: rotate(90deg);
+        transition: all 0.6s;
       }
       img {
         width: 360px;
