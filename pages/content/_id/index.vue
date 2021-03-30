@@ -3,7 +3,7 @@
     <my-header
       :all="common.city_info.all"
       :telphone="common.phone"
-       :butie ="Object.keys(activity).length!== 0"
+      :butie="Object.keys(activity).length !== 0"
       ref="header"
     ></my-header>
     <my-mianbao :router_data="routerData"></my-mianbao>
@@ -14,9 +14,13 @@
         ></remote-js>
       </no-ssr>
       <!-- 返乡置业 -->
-       <div class="banner" v-if="Object.keys(banner).length!== 0" @click="goAdv(banner.url)">
-           <img :src="banner.img" alt="">
-       </div>
+      <div
+        class="banner"
+        v-if="Object.keys(banner).length !== 0"
+        @click="goAdv(banner.url)"
+      >
+        <img :src="banner.img" alt="" />
+      </div>
       <div class="title">
         <h1>
           {{ basic.name }}
@@ -31,10 +35,12 @@
       <!-- 轮播图 -->
       <div class="lun_box">
         <div class="lunbo">
-           <a class="go_pic" @click="goLouPic">
-             楼盘相册
-            </a>
-            <span class="butie" v-if="activity.money!==0 && Object.keys(activity).length!== 0">补贴<em>￥{{activity.money}}</em></span>
+          <a class="go_pic" @click="goLouPic"> 楼盘相册 </a>
+          <span
+            class="butie"
+            v-if="activity.money !== 0 && Object.keys(activity).length !== 0"
+            >补贴<em>￥{{ activity.money }}</em></span
+          >
           <div class="xiao_lun" v-if="xiaoLun">
             <el-carousel
               indicator-position="inside"
@@ -136,7 +142,7 @@
                 :src="xiaoGuo[0].small"
                 :alt="`${basic.name}效果图`"
                 :title="`${basic.name}效果图`"
-                v-if="xiaoGuo.length>0"
+                v-if="xiaoGuo.length > 0"
               />
               <p class="active">效果图({{ xiaoGuo.length }})</p>
             </li>
@@ -145,7 +151,7 @@
                 :src="shiJing[0].small"
                 :alt="`${basic.name}实景图`"
                 :title="`${basic.name}实景图`"
-                v-if="shiJing.length>0"
+                v-if="shiJing.length > 0"
               />
               <p>实景图({{ shiJing.length }})</p>
             </li>
@@ -154,20 +160,20 @@
                 :src="yangBan[0].small"
                 :alt="`${basic.name}样板房`"
                 :title="`${basic.name}样板房`"
-                v-if="yangBan.length>0"
+                v-if="yangBan.length > 0"
               />
               <p>样板房({{ yangBan.length }})</p>
             </li>
-            <li @click="jiaoTongLun" >
+            <li @click="jiaoTongLun">
               <img
                 :src="jiaoTong[0].small"
                 :alt="`${basic.name}交通图`"
                 :title="`${basic.name}交通图`"
-                v-if="jiaoTong.length>0"
+                v-if="jiaoTong.length > 0"
               />
               <p>交通图({{ jiaoTong.length }})</p>
             </li>
-            <li @click="huXingLun" v-if="peiTao.length>0">
+            <li @click="huXingLun" v-if="peiTao.length > 0">
               <img
                 :src="peiTao[0].small"
                 :alt="`${basic.name}配套图`"
@@ -180,11 +186,20 @@
         </div>
         <div class="lun_right">
           <!-- 返乡置业 -->
-           <div class="fan_zhi" v-if="Object.keys(activity).length!== 0">
-                <img src="~/assets/fan/detail_jin.jpg" alt="">
-                <h6>¥{{activity.money}}</h6>
-                <button @click="lingFan(basic.id,'项目落地页返乡置业+补贴金额'+activity.money)">立即领取</button>
-           </div>
+          <div class="fan_zhi" v-if="Object.keys(activity).length !== 0">
+            <img src="~/assets/fan/detail_jin.jpg" alt="" />
+            <h6>¥{{ activity.money }}</h6>
+            <button
+              @click="
+                lingFan(
+                  basic.id,
+                  '项目落地页返乡置业+补贴金额' + activity.money
+                )
+              "
+            >
+              立即领取
+            </button>
+          </div>
           <ul>
             <li>
               <span class="one">参考单价：</span>
@@ -230,19 +245,25 @@
               </nuxt-link>
             </p>
             <p class="right">
-              <span @mousemove="showFen" @mouseleave="hideFen"><em class="iconfont iconweixin"></em>分享</span>
-              <strong v-if="collect==0" @click="getShou(basic.id)"><em class="iconfont iconaixin"></em>关注</strong>
-              <strong v-if="collect==1"  @click="getShou(basic.id)"><em class="iconfont iconaixin1 active"></em>关注</strong>
+              <span @mousemove="showFen" @mouseleave="hideFen"
+                ><em class="iconfont iconweixin"></em>分享</span
+              >
+              <strong v-if="collect == 0" @click="getShou(basic.id)"
+                ><em class="iconfont iconaixin"></em>关注</strong
+              >
+              <strong v-if="collect == 1" @click="getShou(basic.id)"
+                ><em class="iconfont iconaixin1 active"></em>关注</strong
+              >
             </p>
-            <div class="saomama"  v-show ="fenxiang">
-                 <img :src="fenxiang_url" alt v-if="project_id!==''">
-                 <h5>微信"扫一扫",分享</h5>
+            <div class="saomama" v-show="fenxiang">
+              <img :src="fenxiang_url" alt v-if="project_id !== ''" />
+              <h5>微信"扫一扫",分享</h5>
             </div>
           </div>
           <div class="kefu">
             <div class="left_kefu">
               <div class="img_box">
-                   <img :src="staffs[0].head_img" alt />
+                <img :src="staffs[0].head_img" alt />
               </div>
               <div class="right_kefu">
                 <h2>
@@ -250,15 +271,18 @@
                   <span class="zixun">新房咨询</span>
                 </h2>
                 <p class="jian">为客户提供专业的购房建议</p>
-                <p class="tel">{{ common.phone.replace(',','转') }}</p>
+                <p class="tel">{{ common.phone.replace(",", "转") }}</p>
               </div>
             </div>
-            <div class="button" @click="bianTong(104)">
+            <div class="button" @click="gotalk()">
               <img src="~/assets/icon/chat.png" alt="" />
               在线咨询
             </div>
-            <div class="erma" v-if ="common.phone">
-              <img :src="`http://ll.edefang.net//index/weichat/code?tel=${common.phone}`" alt />
+            <div class="erma" v-if="common.phone">
+              <img
+                :src="`http://ll.edefang.net//index/weichat/code?tel=${common.phone}`"
+                alt
+              />
               <p>微信扫码拨号</p>
             </div>
           </div>
@@ -266,7 +290,7 @@
             <div class="youhui_left">
               <div class="left">
                 <h4>年终大促 限时房源优惠</h4>
-                <p>{{logo_text}}专享优惠</p>
+                <p>{{ logo_text }}专享优惠</p>
               </div>
               <span @click="youhuiShow">领取优惠</span>
             </div>
@@ -309,29 +333,38 @@
           </li>
         </ul>
 
-        <span>咨询热线：{{ common.phone.replace(',','转') }}</span>
+        <span>咨询热线：{{ common.phone.replace(",", "转") }}</span>
       </div>
       <div class="mid_box">
         <div class="mid_box_left">
           <!-- 返乡置业 -->
-          <div class="bu_box" v-if="Object.keys(activity).length!== 0">
-              <div class="title">
-                  <h3>返乡置业&nbsp;&nbsp;1亿购房补贴大放送</h3>
-                  <span @click="activityShow">活动介绍></span>
+          <div class="bu_box" v-if="Object.keys(activity).length !== 0">
+            <div class="title">
+              <h3>返乡置业&nbsp;&nbsp;1亿购房补贴大放送</h3>
+              <span @click="activityShow">活动介绍></span>
+            </div>
+            <div class="box_bu_btn">
+              <div class="left">
+                <img src="~/assets/fan/bao.png" alt="" />
+                <div class="bu">
+                  <h3>￥{{ activity.money }}购房补贴金</h3>
+                  <p>购房补贴金后将与您手机号绑定</p>
+                </div>
               </div>
-              <div class="box_bu_btn">
-                  <div class="left">
-                       <img src="~/assets/fan/bao.png" alt="">
-                       <div class="bu">
-                            <h3>￥{{activity.money}}购房补贴金</h3>
-                            <p>购房补贴金后将与您手机号绑定</p>
-                       </div>
-                  </div>
-                  <div class="right">
-                       <button @click="lingFan(basic.id,'项目落地页返乡置业+补贴金额'+activity.money)">立即领取</button>
-                       <p>{{activity.num}}人已领取</p>
-                  </div>
+              <div class="right">
+                <button
+                  @click="
+                    lingFan(
+                      basic.id,
+                      '项目落地页返乡置业+补贴金额' + activity.money
+                    )
+                  "
+                >
+                  立即领取
+                </button>
+                <p>{{ activity.num }}人已领取</p>
               </div>
+            </div>
           </div>
           <!-- 主力户型 -->
           <div class="zhuHu">
@@ -352,7 +385,7 @@
                     </p>
                   </div>
                 </div>
-                <span class="zixun_btn" @click="bianTong(104)">
+                <span class="zixun_btn" @click="gotalk()">
                   <img src="~/assets/icon/chat.png" alt="" />
                   在线咨询
                 </span>
@@ -365,13 +398,17 @@
                     <ul class="ul3-long">
                       <li v-for="item in appartments" :key="item.id">
                         <div class="top_hu">
-                           <nuxt-link :to="`/hudetail/${basic.id}`">
-                             <img :src="item.img" :alt="`${basic.name}${item.title}`" :title="`${basic.name}${item.title}`"/>
-                           </nuxt-link>
+                          <nuxt-link :to="`/hudetail/${basic.id}`">
+                            <img
+                              :src="item.img"
+                              :alt="`${basic.name}${item.title}`"
+                              :title="`${basic.name}${item.title}`"
+                            />
+                          </nuxt-link>
                         </div>
                         <no-ssr>
-                        <div class="buttom_hu">
-                           <nuxt-link :to="`/hudetail/${basic.id}`">
+                          <div class="buttom_hu">
+                            <nuxt-link :to="`/hudetail/${basic.id}`">
                               <h4>
                                 <h6>{{ item.title }}</h6>
                                 <span>{{ item.status }}</span>
@@ -379,22 +416,30 @@
                               <p class="hu_name">面积{{ item.area }}m²</p>
                               <p class="hu_mian">
                                 约
-                                <em v-if="parseInt(item.price)>0 && parseInt(item.price)!==0">{{ item.price }}</em>
+                                <em
+                                  v-if="
+                                    parseInt(item.price) > 0 &&
+                                    parseInt(item.price) !== 0
+                                  "
+                                  >{{ item.price }}</em
+                                >
                                 <em v-else>待定</em>
                                 万/套
                               </p>
-                           </nuxt-link>
-                          <button @click="bianTong(97.1)">咨询详细户型</button>
-                        </div>
+                            </nuxt-link>
+                            <button @click="bianTong(97.1)">
+                              咨询详细户型
+                            </button>
+                          </div>
                         </no-ssr>
                       </li>
                     </ul>
                   </div>
                 </div>
-                <button class="leftBtn3" v-show="appartments.length>=3">
+                <button class="leftBtn3" v-show="appartments.length >= 3">
                   <span class="el-icon-arrow-left"></span>
                 </button>
-                <button class="rightBtn3" v-show="appartments.length>=3">
+                <button class="rightBtn3" v-show="appartments.length >= 3">
                   <span class="el-icon-arrow-right"></span>
                 </button>
               </div>
@@ -475,21 +520,24 @@
             </div>
             <div class="content">
               <div class="img_box">
-              
                 <img :src="basic.img" alt />
                 <p>省时 省心 省力</p>
               </div>
               <div class="fenxi_content">
                 <div class="tou_fenxi">
                   <h1>投资分析</h1>
-                  <p class="text" v-if="analysises[0]">1.{{ analysises[0].content }}</p>
+                  <p class="text" v-if="analysises[0]">
+                    1.{{ analysises[0].content }}
+                  </p>
                   <p class="yin">
                     <img src="~/assets/yinying.png" alt="" />
                   </p>
                 </div>
                 <div class="yiju_fenxi">
                   <h1>宜居分析</h1>
-                  <p class="text" v-if="analysises[1]">1.{{ analysises[1].content }}</p>
+                  <p class="text" v-if="analysises[1]">
+                    1.{{ analysises[1].content }}
+                  </p>
                   <p class="yin">
                     <img src="~/assets/yinying.png" alt="" />
                   </p>
@@ -542,17 +590,25 @@
                   <span class="el-icon-bell"></span>
                 </div>
                 <p v-if="last_date">
-                  本楼盘自开盘之日起共签约xx套，最新成交日期：{{last_date}}；如需了解真实最低成交价，请填写接收短信的手机号码
+                  本楼盘自开盘之日起共签约xx套，最新成交日期：{{
+                    last_date
+                  }}；如需了解真实最低成交价，请填写接收短信的手机号码
                 </p>
               </div>
               <div class="tel_box">
-                <input type="text" placeholder="请输入您的手机号" maxlength="11" v-model="li_tel" id="li_phone"/>
+                <input
+                  type="text"
+                  placeholder="请输入您的手机号"
+                  maxlength="11"
+                  v-model="li_tel"
+                  id="li_phone"
+                />
                 <button @click="li_baoming(105)">立即查询</button>
               </div>
             </div>
           </div>
           <!--楼盘问问  -->
-          <div class="louwen" v-if="questions.length!==0">
+          <div class="louwen" v-if="questions.length !== 0">
             <h3>
               楼盘问问
               <span
@@ -608,7 +664,7 @@
                           >人
                         </p>
                       </div>
-                      <span class="btn" @click="bianTong(104)">
+                      <span class="btn" @click="gotalk">
                         <img src="~/assets/icon/chat.png" alt="" />
                         向TA咨询</span
                       >
@@ -658,7 +714,9 @@
                   </p>
                   <div class="ping">
                     <div class="ping_left">
-                      <span class="span2">{{logo_text}}新房 {{ item.time }}</span>
+                      <span class="span2"
+                        >{{ logo_text }}新房 {{ item.time }}</span
+                      >
                       <span
                         class="span3"
                         v-if="item.mine == 1"
@@ -777,11 +835,11 @@
               <li v-for="item in same_areas" :key="item.id">
                 <nuxt-link :to="`/content/${item.id}`">
                   <div class="img_box">
-                    <img :src="item.img" :alt="item.name" :title="item.name"/>
+                    <img :src="item.img" :alt="item.name" :title="item.name" />
                     <div class="bg"></div>
-                    <span class="butie" v-if="item.money!==0">
-                          补贴
-                        <em>￥{{item.money}}</em>
+                    <span class="butie" v-if="item.money !== 0">
+                      补贴
+                      <em>￥{{ item.money }}</em>
                     </span>
                   </div>
                   <div class="project_content">
@@ -800,88 +858,96 @@
           </div>
         </div>
         <div class="box_right_fixed">
-            <div class="bang_box_home_de">
-              <div class="project_top">
-                <h3>
-                  {{ basic.name }}
-                  <span>{{ basic.status }}</span>
-                  <em>{{ basic.type }}</em>
-                </h3>
-                <ul>
-                  <li>
-                    参考单价：
-                    <span>
-                      <strong>{{ basic.single_price }}</strong
-                      >元/m²
-                    </span>
-                  </li>
-                  <li>
-                    楼盘地址：
-                    <span>{{ basic.address }}</span>
-                  </li>
-                  <li>
-                    开盘时间：
-                    <span v-if="basic.opentime">{{ basic.opentime }}</span>
-                  </li>
-                </ul>
-                <div class="btn_two">
-                  <span @click="bianTong(91)">
-                    <img src="~/assets/icon/bianjia.png" alt="" />变价通知我
+          <div class="bang_box_home_de">
+            <div class="project_top">
+              <h3>
+                {{ basic.name }}
+                <span>{{ basic.status }}</span>
+                <em>{{ basic.type }}</em>
+              </h3>
+              <ul>
+                <li>
+                  参考单价：
+                  <span>
+                    <strong>{{ basic.single_price }}</strong
+                    >元/m²
                   </span>
-                  <span @click="bianTong(92)">
-                    <img src="~/assets/icon/kaipan.png" alt="" />开盘提醒我
-                  </span>
-                </div>
-              </div>
-              <div class="pro_zixun">
-                <div class="fenxishi">
-                  <h4>楼盘分析师</h4>
-                  <ul class="tese">
-                    <li>
-                      <span class="iconfont iconanquan"></span>
-                      专业服务
-                    </li>
-                    <li><span class="iconfont iconanquan"></span>区域解读</li>
-                    <li><span class="iconfont iconanquan"></span>户型分析</li>
-                  </ul>
-                </div>
-                <div class="kefu">
-                  <ul>
-                    <li>
-                      <div class="kefu_img_box">
-                          <img :src="staffs[3].head_img" alt class="head_img" />
-                      </div>
-                      <div class="name_box">
-                        <h6>
-                          {{ staffs[3].name }}
-                          <span>新房咨询</span>
-                        </h6>
-                        <p class="fuwu">
-                          服务人数
-                          <em>{{ staffs[3].ServeNum }}</em
-                          >人
-                        </p>
-                        <p class="tel">
-                          {{ common.phone.replace(',','转') }}
-                          <img src="~/assets/icon/erma.png" alt="" @mousemove="saomaShow" @mouseleave="saomaHide"/>
-                        </p>
-                        <my-sao-ma ref="saoma" :saoma_lian="this.saoma_url"></my-sao-ma>
-                      </div>
-                      <button @click="bianTong(104)">
-                        <img src="~/assets/icon/chat.png" alt="" />在线咨询
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                <div class="youhui">
-                  <div class="left_you">
-                    <h4>年终大促 限时房源优惠</h4>
-                    <p>{{logo_text}}专享优惠</p>
-                  </div>
-                  <span @click="youhuiShow">领取优惠</span>
-                </div>
+                </li>
+                <li>
+                  楼盘地址：
+                  <span>{{ basic.address }}</span>
+                </li>
+                <li>
+                  开盘时间：
+                  <span v-if="basic.opentime">{{ basic.opentime }}</span>
+                </li>
+              </ul>
+              <div class="btn_two">
+                <span @click="bianTong(91)">
+                  <img src="~/assets/icon/bianjia.png" alt="" />变价通知我
+                </span>
+                <span @click="bianTong(92)">
+                  <img src="~/assets/icon/kaipan.png" alt="" />开盘提醒我
+                </span>
               </div>
             </div>
+            <div class="pro_zixun">
+              <div class="fenxishi">
+                <h4>楼盘分析师</h4>
+                <ul class="tese">
+                  <li>
+                    <span class="iconfont iconanquan"></span>
+                    专业服务
+                  </li>
+                  <li><span class="iconfont iconanquan"></span>区域解读</li>
+                  <li><span class="iconfont iconanquan"></span>户型分析</li>
+                </ul>
+              </div>
+              <div class="kefu">
+                <ul>
+                  <li>
+                    <div class="kefu_img_box">
+                      <img :src="staffs[3].head_img" alt class="head_img" />
+                    </div>
+                    <div class="name_box">
+                      <h6>
+                        {{ staffs[3].name }}
+                        <span>新房咨询</span>
+                      </h6>
+                      <p class="fuwu">
+                        服务人数
+                        <em>{{ staffs[3].ServeNum }}</em
+                        >人
+                      </p>
+                      <p class="tel">
+                        {{ common.phone.replace(",", "转") }}
+                        <img
+                          src="~/assets/icon/erma.png"
+                          alt=""
+                          @mousemove="saomaShow"
+                          @mouseleave="saomaHide"
+                        />
+                      </p>
+                      <my-sao-ma
+                        ref="saoma"
+                        :saoma_lian="this.saoma_url"
+                      ></my-sao-ma>
+                    </div>
+                    <button @click="gotalk()">
+                      <img src="~/assets/icon/chat.png" alt="" />在线咨询
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div class="youhui">
+                <div class="left_you">
+                  <h4>年终大促 限时房源优惠</h4>
+                  <p>{{ logo_text }}专享优惠</p>
+                </div>
+                <span @click="youhuiShow">领取优惠</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -945,8 +1011,8 @@
           </div>
           <div class="content">
             <img src="~/assets/two.png" alt="" />
-            <p>如需了解更多房产相关资讯 关注{{logo_text}}公众号</p>
-            <button  @click="closePingCheng">确定</button>
+            <p>如需了解更多房产相关资讯 关注{{ logo_text }}公众号</p>
+            <button @click="closePingCheng">确定</button>
           </div>
         </div>
       </div>
@@ -957,7 +1023,7 @@
           <div class="img_box">
             <div class="hongbao_tit">
               <h1>恭喜你！获得</h1>
-              <p class="youhui">{{logo_text}}专享年终大促购房优惠券</p>
+              <p class="youhui">{{ logo_text }}专享年终大促购房优惠券</p>
               <p class="p01">已有<em>861</em>人领取</p>
             </div>
             <img src="~/assets/tankuang/hongbao_tan.png" alt />
@@ -975,7 +1041,7 @@
               <p class="p02">
                 活动说明：领取成功后优惠编码将与您手机号绑定，会有工作人员与您联系
               </p>
-              <p class="p03">注：活动最终解释权归{{logo_text}}所有</p>
+              <p class="p03">注：活动最终解释权归{{ logo_text }}所有</p>
             </div>
             <!-- 输入验证码 -->
             <div class="hong_yan" v-show="hongbao.hong_yan_flag">
@@ -991,7 +1057,7 @@
                 <button @click="getYanMa_c">{{ hongbao.yan_text }}</button>
               </div>
               <button class="queren" @click="subYan_c">确定</button>
-              <p class="tip">注：活动最终解释权归{{logo_text}}所有</p>
+              <p class="tip">注：活动最终解释权归{{ logo_text }}所有</p>
             </div>
           </div>
         </div>
@@ -1019,21 +1085,20 @@
           </div>
         </div>
       </div>
-        <!-- 图形验证码弹框 -->
-        <div class="loginyans" v-show="tuYanFlags">
-          <slide-verify
-            :w="310"
-            :h="255"
-            @success="onSuccess"
-            @fail="onFail"
-            @refresh="onRefresh"
-            :slider-text="textt"
-            :imgs="imgs"
-            ref="slideblock"
-          ></slide-verify>
-          <div class="massage">{{ msg }}</div>
-        </div>
-
+      <!-- 图形验证码弹框 -->
+      <div class="loginyans" v-show="tuYanFlags">
+        <slide-verify
+          :w="310"
+          :h="255"
+          @success="onSuccess"
+          @fail="onFail"
+          @refresh="onRefresh"
+          :slider-text="textt"
+          :imgs="imgs"
+          ref="slideblock"
+        ></slide-verify>
+        <div class="massage">{{ msg }}</div>
+      </div>
     </div>
     <my-footer
       :c_zhi_citys="common.city_info.all"
@@ -1042,7 +1107,11 @@
       :footer_tel="common.phone"
     ></my-footer>
     <activity-rule ref="rules"></activity-rule>
-    <fan-zhi-hong ref="hong" :project="project_id_fan" :remark="remark_fan"></fan-zhi-hong>
+    <fan-zhi-hong
+      ref="hong"
+      :project="project_id_fan"
+      :remark="remark_fan"
+    ></fan-zhi-hong>
   </div>
 </template>
 
@@ -1059,33 +1128,33 @@ import img3 from "~/assets/b3.jpg";
 import img4 from "~/assets/b4.jpg";
 import img5 from "~/assets/b5.jpg";
 import img6 from "~/assets/b6.jpg";
-import saoma from '~/components/saoma.vue';
+import saoma from "~/components/saoma.vue";
 import activityrule from "~/components/activityrule.vue";
-import fanzhi from "~/components/fanTan.vue"
+import fanzhi from "~/components/fanTan.vue";
 
 export default {
-  layout:'default',
+  layout: "default",
   meta: { title: "项目详情页" },
   head() {
     return {
-      title:this.header.title ,
+      title: this.header.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.header.description
+          content: this.header.description,
         },
-        { hid: "Keywords", name: "Keywords", content: this.header.keywords }
-      ]
+        { hid: "Keywords", name: "Keywords", content: this.header.keywords },
+      ],
     };
   },
   components: {
     "my-header": header,
     "my-mianbao": soubox,
     "my-footer": footer,
-    "my-sao-ma" :saoma,
+    "my-sao-ma": saoma,
     "activity-rule": activityrule,
-    "fan-zhi-hong":fanzhi,
+    "fan-zhi-hong": fanzhi,
     "remote-js": {
       render(createElement) {
         return createElement("script", {
@@ -1107,24 +1176,24 @@ export default {
       return false;
     }
   },
-  async asyncData({ app, query, params, store,req }) {
+  async asyncData({ app, query, params, store, req }) {
     let host = store.state.hostname;
     let uuid = query.uuid;
-    if(uuid && uuid!=="undefined" && uuid!=="null"){
+    if (uuid && uuid !== "undefined" && uuid !== "null") {
       uuid = uuid;
-    }else{
-       uuid= '';
+    } else {
+      uuid = "";
     }
-    let other =query.other;
-    let str ="";
-    if(other){
-      other= other;
-      str =`/jy/pc/detail?token=${store.state.token}&id=${params.id}&other=${other}&ip=${store.state.ip}&uuid=${uuid}&host=${host}`
-    }else{
-       other= "null";
-       str =`/jy/pc/detail?token=${store.state.token}&id=${params.id}&ip=${store.state.ip}&uuid=${uuid}&host=${host}`
+    let other = query.other;
+    let str = "";
+    if (other) {
+      other = other;
+      str = `/jy/pc/detail?token=${store.state.token}&id=${params.id}&other=${other}&ip=${store.state.ip}&uuid=${uuid}&host=${host}`;
+    } else {
+      other = "null";
+      str = `/jy/pc/detail?token=${store.state.token}&id=${params.id}&ip=${store.state.ip}&uuid=${uuid}&host=${host}`;
     }
-  //  console.log(other,store.state.ip);
+    //  console.log(other,store.state.ip);
     //     参数
     // token
     // id
@@ -1133,18 +1202,17 @@ export default {
     // 请求方式 get
     let [data] = await Promise.all([
       app.$axios
-        .get(
-         str
-        )
+        .get(str)
         .then((res) => {
           if (res.data.code == 200) {
             let data = res.data;
-      //      console.log(data,'data');
+            //      console.log(data,'data');
             return data;
           }
-        }).catch(e=>{
-           console.log(e);
         })
+        .catch((e) => {
+          console.log(e);
+        }),
     ]);
     let data1 = {};
     let basic = {};
@@ -1152,8 +1220,8 @@ export default {
     let truePrice = [];
     let comments = [];
     let same_areas = [];
-    let  activity= {};
-    let  banner = {};
+    let activity = {};
+    let banner = {};
     if (data) {
       data1 = data;
       basic = data.data.basic;
@@ -1161,16 +1229,16 @@ export default {
       truePrice = data.data.deals;
       comments = data.data.comments;
       same_areas = data.same_areas;
-      if(data.common.activity == null ){
-          activity = {};
-      }else{
-          activity = data.common.activity;
+      if (data.common.activity == null) {
+        activity = {};
+      } else {
+        activity = data.common.activity;
       }
-      
-      if(data.common.banner.length ==0){
-            banner = {}; 
-      }else{
-          banner = data.common.banner;
+
+      if (data.common.banner.length == 0) {
+        banner = {};
+      } else {
+        banner = data.common.banner;
       }
     }
     return {
@@ -1190,12 +1258,11 @@ export default {
       staffs: data1.common.staffs,
       common: data1.common,
       count: data1.data.basic.count,
-      collect:data1.collect,
-      header:data1.common.header,
-      current_city:data1.common.city_info.current,
-      activity:activity,
-      banner:banner
-
+      collect: data1.collect,
+      header: data1.common.header,
+      current_city: data1.common.city_info.current,
+      activity: activity,
+      banner: banner,
     };
   },
   data() {
@@ -1256,34 +1323,33 @@ export default {
       pingid: "",
       content_hui: "",
       routerData: [],
-      collect:0, //是否收藏
+      collect: 0, //是否收藏
       //立即查询
-       li_tel:'',
-         //图形验证码部分
+      li_tel: "",
+      //图形验证码部分
       tuYanFlags: false,
       textt: "向右滑",
       imgs: [img1, img2, img3, img4, img5, img6],
       msg: "",
-      saoma_url:'',
+      saoma_url: "",
 
-      fenxiang:false,
-      fenxiang_url:"",
-      project_id:'',
-      last_date:'',
-      price_show:true,
+      fenxiang: false,
+      fenxiang_url: "",
+      project_id: "",
+      last_date: "",
+      price_show: true,
 
-      header:{},
-      logo_text:'家园',
-      current_city:{},
+      header: {},
+      logo_text: "家园",
+      current_city: {},
       //返乡置业
-      activity:{},
-      banner:{},
-      remark_fan:'',
-      project_id_fan:''
-
+      activity: {},
+      banner: {},
+      remark_fan: "",
+      project_id_fan: "",
     };
   },
-  
+
   computed: {
     price: function () {
       var price = [];
@@ -1301,110 +1367,147 @@ export default {
     },
   },
   methods: {
-      goAdv(url){
-          if(url!=='' && url!==null){
-              window.location.href= url;
-          }else{
-             console.log(url,'url')
-          }
-      },
-       lingFan(pid,remark){
-         this.remark_fan= remark;
-         this.project_id_fan= pid;
-
-          this.$refs.hong.showHong();
-       },
-      activityShow(){
-          this.$refs.rules.showRules();
-      },
-      getWidth(){
-         
-        //跳转手机端  
-          let host = window.location.host;
-          let  city_current = this.current_city;
-          let width=document.body.clientWidth;
-        window.onresize=()=>{
-            if(width<490){
-                  if(host.indexOf('www.jy1980.com') != -1){
-                      window.location.href="http://m.jy1980.com/"+city_current.pinyin+"/content/"+this.$route.params.id
-                  }else if(host.indexOf('www.edefang.net') != -1){
-                      window.location.href="http://mobile.edefang.net/"+city_current.pinyin+"/content/"+this.$route.params.id
-                  }else if(host.indexOf(city_current.pinyin+'.jy1980.com') != -1){
-                      window.location.href="http://m.jy1980.com/"+city_current.pinyin+"/content/"+this.$route.params.id
-                  }else if(host.indexOf(city_current.pinyin+'.edefang.net') != -1){
-                      window.location.href="http://mobile.edefang.net/"+city_current.pinyin+"/content/"+this.$route.params.id
-                  }
-            }
-        }
-
-        let liu_width=document.body.clientWidth;
-        if(liu_width<490){
-              if(host.indexOf('www.jy1980.com') != -1){
-                   window.location.href="http://m.jy1980.com/"+city_current.pinyin+"/content/"+this.$route.params.id
-              }else if(host.indexOf('www.edefang.net') != -1){
-                   window.location.href="http://mobile.edefang.net/"+city_current.pinyin+"/content/"+this.$route.params.id
-              }else if(host.indexOf(city_current.pinyin+'.jy1980.com') != -1){
-                   window.location.href="http://m.jy1980.com/"+city_current.pinyin+"/content/"+this.$route.params.id
-              }else if(host.indexOf(city_current.pinyin+'.edefang.net') != -1){
-                  window.location.href="http://mobile.edefang.net/"+city_current.pinyin+"/content/"+this.$route.params.id
-              }
-            
-        }
+    showliu(){
+      if ($(window).scrollTop()>=$(document).height()-$(window).height() ) {
+        this.$parent.$parent.liuShow()
+      }
     },
-     goLouPic() {
+    gotalk() {
+      this.$parent.$parent.showChatBox()
+    },
+    goAdv(url) {
+      if (url !== "" && url !== null) {
+        window.location.href = url;
+      } else {
+        console.log(url, "url");
+      }
+    },
+    lingFan(pid, remark) {
+      this.remark_fan = remark;
+      this.project_id_fan = pid;
+
+      this.$refs.hong.showHong();
+    },
+    activityShow() {
+      this.$refs.rules.showRules();
+    },
+    getWidth() {
+      //跳转手机端
+      let host = window.location.host;
+      let city_current = this.current_city;
+      let width = document.body.clientWidth;
+      window.onresize = () => {
+        if (width < 490) {
+          if (host.indexOf("www.jy1980.com") != -1) {
+            window.location.href =
+              "http://m.jy1980.com/" +
+              city_current.pinyin +
+              "/content/" +
+              this.$route.params.id;
+          } else if (host.indexOf("www.edefang.net") != -1) {
+            window.location.href =
+              "http://mobile.edefang.net/" +
+              city_current.pinyin +
+              "/content/" +
+              this.$route.params.id;
+          } else if (host.indexOf(city_current.pinyin + ".jy1980.com") != -1) {
+            window.location.href =
+              "http://m.jy1980.com/" +
+              city_current.pinyin +
+              "/content/" +
+              this.$route.params.id;
+          } else if (host.indexOf(city_current.pinyin + ".edefang.net") != -1) {
+            window.location.href =
+              "http://mobile.edefang.net/" +
+              city_current.pinyin +
+              "/content/" +
+              this.$route.params.id;
+          }
+        }
+      };
+
+      let liu_width = document.body.clientWidth;
+      if (liu_width < 490) {
+        if (host.indexOf("www.jy1980.com") != -1) {
+          window.location.href =
+            "http://m.jy1980.com/" +
+            city_current.pinyin +
+            "/content/" +
+            this.$route.params.id;
+        } else if (host.indexOf("www.edefang.net") != -1) {
+          window.location.href =
+            "http://mobile.edefang.net/" +
+            city_current.pinyin +
+            "/content/" +
+            this.$route.params.id;
+        } else if (host.indexOf(city_current.pinyin + ".jy1980.com") != -1) {
+          window.location.href =
+            "http://m.jy1980.com/" +
+            city_current.pinyin +
+            "/content/" +
+            this.$route.params.id;
+        } else if (host.indexOf(city_current.pinyin + ".edefang.net") != -1) {
+          window.location.href =
+            "http://mobile.edefang.net/" +
+            city_current.pinyin +
+            "/content/" +
+            this.$route.params.id;
+        }
+      }
+    },
+    goLouPic() {
       var pid = this.$route.params.id;
       this.$router.push(`/propic/${pid}`);
-     },
-      showFen(){
-          let id='';
-          let match = this.$route.params.id.match(/\d+/);
-          if(match){
-              id= match[0];
-              this.project_id = id;
-          }
-          if(id!==''){
-              this.fenxiang_url = `http://ll.edefang.net/api/project/transfer_m?id=${id}`;
-              this.fenxiang= true;
-          }
-       
-      },
-      hideFen(){
-          this.fenxiang= false;
-      },
-      getSmallmap(cpoint, name){
-           var AMap = window.AMap;
-             AMap.convertFrom(cpoint, "baidu", function (status, result) {
-                 if (result.info === "ok") {
-                      var lnglats = result.locations;
-                      cpoint = [lnglats[0].lng, lnglats[0].lat];
-                      var map = new AMap.Map("container_small", {
-                        // eslint-disable-line no-unused-vars
-                        resizeEnable: true,
-                        zoom: 15,
-                        center: cpoint,
-                        zoomEnable:false,
-                        dragEnable: false,
-                      });
-                       var content = `<div class="marker-route_s">${name} <div class="box_b"><div class="box_c"></div></div></div>`;
-                        // function addMarker() {     // eslint-disable-line no-unused-vars
-                        var marker = new AMap.Marker({
-                          // eslint-disable-line no-unused-vars
-                          content: content,
-                          position: cpoint,
-                          offset: new AMap.Pixel(-70, -44),
-                        });
-                        marker.setMap(map); // eslint-disable-line no-unused-vars
-                 }
-             });
-      },
-     saomaShow() {
-           if(this.common.phone!==''){
-              this.saoma_url = `http://ll.edefang.net//index/weichat/code?tel=${this.common.phone}`;
-              this.$refs.saoma.saoma= true;
-          }
+    },
+    showFen() {
+      let id = "";
+      let match = this.$route.params.id.match(/\d+/);
+      if (match) {
+        id = match[0];
+        this.project_id = id;
+      }
+      if (id !== "") {
+        this.fenxiang_url = `http://ll.edefang.net/api/project/transfer_m?id=${id}`;
+        this.fenxiang = true;
+      }
+    },
+    hideFen() {
+      this.fenxiang = false;
+    },
+    getSmallmap(cpoint, name) {
+      var AMap = window.AMap;
+      AMap.convertFrom(cpoint, "baidu", function (status, result) {
+        if (result.info === "ok") {
+          var lnglats = result.locations;
+          cpoint = [lnglats[0].lng, lnglats[0].lat];
+          var map = new AMap.Map("container_small", {
+            // eslint-disable-line no-unused-vars
+            resizeEnable: true,
+            zoom: 15,
+            center: cpoint,
+            zoomEnable: false,
+            dragEnable: false,
+          });
+          var content = `<div class="marker-route_s">${name} <div class="box_b"><div class="box_c"></div></div></div>`;
+          // function addMarker() {     // eslint-disable-line no-unused-vars
+          var marker = new AMap.Marker({
+            // eslint-disable-line no-unused-vars
+            content: content,
+            position: cpoint,
+            offset: new AMap.Pixel(-70, -44),
+          });
+          marker.setMap(map); // eslint-disable-line no-unused-vars
+        }
+      });
+    },
+    saomaShow() {
+      if (this.common.phone !== "") {
+        this.saoma_url = `http://ll.edefang.net//index/weichat/code?tel=${this.common.phone}`;
+        this.$refs.saoma.saoma = true;
+      }
     },
     saomaHide() {
-      this.$refs.saoma.saoma= false;
+      this.$refs.saoma.saoma = false;
     },
     onFail() {
       this.msg = "验证失败";
@@ -1462,34 +1565,38 @@ export default {
               this.tuYanFlags = false;
               this.$refs.slideblock.reset();
             } else {
-               console.log(res.data.message);
+              console.log(res.data.message);
             }
 
-           if(res.data.code==500  && res.data.message=="已成功为您订阅了该服务"){
-                    this.$message.success(res.data.message);
-                    this.tuYanFlags =false; 
-                    this.$refs.slideblock.reset();
-              }
-
+            if (
+              res.data.code == 500 &&
+              res.data.message == "已成功为您订阅了该服务"
+            ) {
+              this.$message.success(res.data.message);
+              this.tuYanFlags = false;
+              this.$refs.slideblock.reset();
+            }
           });
       }
     },
-    li_baoming(num){ //立即查询
-         sessionStorage.setItem("bao_id",num);
-          var number = this.li_tel;
-          let myreg = new RegExp("^[1][3,4,5,7,8][0-9]{9}$");
-          if (number !== "") {
-          if (!myreg.test(number)) {
-            $("#li_phone").val("");
-            $("#li_phone").attr("placeholder", "手机号码不合法");
-          } else {
-            this.tuYanFlags = true;
-          }
+    li_baoming(num) {
+      //立即查询
+      sessionStorage.setItem("bao_id", num);
+      var number = this.li_tel;
+      let myreg = new RegExp("^[1][3,4,5,7,8][0-9]{9}$");
+      if (number !== "") {
+        if (!myreg.test(number)) {
+          $("#li_phone").val("");
+          $("#li_phone").attr("placeholder", "手机号码不合法");
         } else {
-          $("#li_phone").attr("placeholder", "手机号不能为空");
+          this.tuYanFlags = true;
         }
+      } else {
+        $("#li_phone").attr("placeholder", "手机号不能为空");
+      }
     },
-    getShou(id){ //项目收藏
+    getShou(id) {
+      //项目收藏
       var token = localStorage.getItem("token");
       if (token !== "" && token !== null) {
         axios({
@@ -1498,7 +1605,7 @@ export default {
           params: {
             token: token,
             id: id,
-            type:1
+            type: 1,
           },
         })
           .then((res) => {
@@ -1650,7 +1757,7 @@ export default {
             let comments = res.data.data.comments;
             this.comments = comments;
             this.questions = res.data.data.questions;
-            this.collect =  res.data.collect;
+            this.collect = res.data.collect;
           }
         });
     },
@@ -1731,19 +1838,18 @@ export default {
       }
     },
     getYanMa_c() {
-
-//       let kk = parseInt(new Date().getTime()/1000)
-//       if($cookies.get('time')){
-//         let dd = kk-$cookies.get('time')
-//         if(dd<60){
-//           this.$message.error('不要频繁报名')
-//           return
-//         }else{
-//           $cookies.set('time',kk)
-//         }
-//       }else{
-//         $cookies.set('time',kk)
-//       }
+      //       let kk = parseInt(new Date().getTime()/1000)
+      //       if($cookies.get('time')){
+      //         let dd = kk-$cookies.get('time')
+      //         if(dd<60){
+      //           this.$message.error('不要频繁报名')
+      //           return
+      //         }else{
+      //           $cookies.set('time',kk)
+      //         }
+      //       }else{
+      //         $cookies.set('time',kk)
+      //       }
 
       //红包获取验证码
       if (!this.flag) {
@@ -1777,21 +1883,21 @@ export default {
         })
           .then((res) => {
             if (res.data.code == 200) {
-               this.$cookies.remove('time')
+              this.$cookies.remove("time");
               this.$message.success(res.data.message);
             } else {
               this.$message.error(res.data.message);
             }
           })
           .catch((error) => {
-             if(error.response){
-                  console.log(error.response.data);
-                  this.$message.error(error.response.data.msg);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
-              }else{
-                console.log(error.message);
-              }
+            if (error.response) {
+              console.log(error.response.data);
+              this.$message.error(error.response.data.msg);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else {
+              console.log(error.message);
+            }
           });
       }
     },
@@ -1843,30 +1949,32 @@ export default {
               // this.tan_title_c = "抢优惠券";
               this.getYanMa_c();
             }
-              if(res.data.code==500  && res.data.message=="已成功为您订阅了该服务"){
-                       this.$message.success(res.data.message);
-                       this.hongbao.hong_tan = false;
-                 }
-
+            if (
+              res.data.code == 500 &&
+              res.data.message == "已成功为您订阅了该服务"
+            ) {
+              this.$message.success(res.data.message);
+              this.hongbao.hong_tan = false;
+            }
           });
       }
     },
     //红包提交手机号
 
     bianTong(num) {
-      sessionStorage.setItem("project_id",this.basic.id);
-      if(num==91.1){
-          sessionStorage.setItem("bao_id", 91);
-      }else{
-          sessionStorage.setItem("bao_id", num);
+      sessionStorage.setItem("project_id", this.basic.id);
+      if (num == 91.1) {
+        sessionStorage.setItem("bao_id", 91);
+      } else {
+        sessionStorage.setItem("bao_id", num);
       }
 
-      if(num==97.1){
-          sessionStorage.setItem("bao_id", 97);
-      }else{
-          sessionStorage.setItem("bao_id", num);
+      if (num == 97.1) {
+        sessionStorage.setItem("bao_id", 97);
+      } else {
+        sessionStorage.setItem("bao_id", num);
       }
-     
+
       switch (num) {
         case 91:
           this.$parent.$parent.baoming_tel.tan_title = "变价通知"; //ok
@@ -1882,7 +1990,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           break;
-      case 91.2:
+        case 91.2:
           this.$parent.$parent.baoming_tel.tan_title = "变价通知我"; //ok
           this.$parent.$parent.baoming_tel.tan_content =
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
@@ -1897,7 +2005,7 @@ export default {
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/huxing.png");
           break;
-       case 97.1:
+        case 97.1:
           this.$parent.$parent.baoming_tel.tan_title = "咨询详细户型"; //ok
           this.$parent.$parent.baoming_tel.tan_content =
             "好楼盘户型是关键，咨询详细户型信息，安安心心买房";
@@ -1926,7 +2034,7 @@ export default {
           this.$parent.$parent.baoming_tel.tan_content =
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
           this.$parent.$parent.baoming_tel.default_show = true;
-           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.baoming_tel.kaipan_show = false;
           break;
         case 103:
           this.$parent.$parent.baoming_tel.tan_title = "预约看房"; //ok
@@ -1955,7 +2063,7 @@ export default {
           this.$parent.$parent.baoming_tel.tan_content =
             "一键订阅最新开盘通知，我们会第一时间通知您，不再错过开盘时间";
           this.$parent.$parent.baoming_tel.default_show = true;
-           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.baoming_tel.kaipan_show = false;
           break;
         case 98:
           this.$parent.$parent.baoming_tel.tan_title = "订阅楼盘动态"; //ok
@@ -1988,7 +2096,7 @@ export default {
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/map.png");
           break;
-       case 105:
+        case 105:
           this.$parent.$parent.baoming_tel.tan_title = "最低真实成交价"; //1
           this.$parent.$parent.baoming_tel.tan_content =
             "获取最新成交价格，看看房友都是什么价格买的房";
@@ -2002,7 +2110,7 @@ export default {
     guanTuanTan() {
       this.hongbao.hong_tan = false;
       this.hongbao.hong_tel_flag = true;
-      this.hongbao.hong_yan_flag =false;
+      this.hongbao.hong_yan_flag = false;
     },
     closePingCheng() {
       $(".guan").css({
@@ -2193,7 +2301,7 @@ export default {
             zoom: 15,
             center: cpoint,
           });
-          
+
           var content = `<div class="marker-route">${name} <div class="box_b"><div class="box_c"></div></div></div>`;
           // function addMarker() {     // eslint-disable-line no-unused-vars
           var marker = new AMap.Marker({
@@ -2222,25 +2330,27 @@ export default {
 
             var s = AMap.GeometryUtil.distance(cpoint, p2);
             console.log(s);
-            placeSearch.searchNearBy("公交站", cpoint, 2000, function (
-              status,
-              result
-            ) {
-              console.log(status, result);
-              // eslint-disable-line no-unused-vars
-              //测试验证
-              // var pois=result.poiList.pois;
-              // pois.forEach(element => {
-              //      var location=element.location;
-              //      var cpoint = [Number(location.lng), Number(location.lat)];
-              //      var marker = new AMap.Marker({
-              //       icon: require("~/assets/bus_xin.png"),    //中心点的坐标
-              //       position: cpoint,
-              //       offset: new AMap.Pixel(-13, -30)
-              //     });
-              //     marker.setMap(map);
-              // });
-            });
+            placeSearch.searchNearBy(
+              "公交站",
+              cpoint,
+              2000,
+              function (status, result) {
+                console.log(status, result);
+                // eslint-disable-line no-unused-vars
+                //测试验证
+                // var pois=result.poiList.pois;
+                // pois.forEach(element => {
+                //      var location=element.location;
+                //      var cpoint = [Number(location.lng), Number(location.lat)];
+                //      var marker = new AMap.Marker({
+                //       icon: require("~/assets/bus_xin.png"),    //中心点的坐标
+                //       position: cpoint,
+                //       offset: new AMap.Pixel(-13, -30)
+                //     });
+                //     marker.setMap(map);
+                // });
+              }
+            );
 
             $(document).ready(function () {
               $("#list ul li").on("click", function () {
@@ -2285,39 +2395,39 @@ export default {
       });
     },
     xiaoGuoLun() {
-            this.xiaoLun= true;
-            this.shiLun= false;
-            this.yangLun= false;
-            this.jiaoLun= false;
-            this.huLun= false;
+      this.xiaoLun = true;
+      this.shiLun = false;
+      this.yangLun = false;
+      this.jiaoLun = false;
+      this.huLun = false;
     },
     shiJingLun() {
-            this.xiaoLun= false;
-            this.shiLun= true;
-            this.yangLun= false;
-            this.jiaoLun= false;
-            this.huLun= false;
+      this.xiaoLun = false;
+      this.shiLun = true;
+      this.yangLun = false;
+      this.jiaoLun = false;
+      this.huLun = false;
     },
     yangBanLun() {
-            this.xiaoLun= false;
-            this.shiLun= false;
-            this.yangLun= true;
-            this.jiaoLun= false;
-            this.huLun= false;
+      this.xiaoLun = false;
+      this.shiLun = false;
+      this.yangLun = true;
+      this.jiaoLun = false;
+      this.huLun = false;
     },
     jiaoTongLun() {
-            this.xiaoLun= false;
-            this.shiLun= false;
-            this.yangLun= false;
-            this.jiaoLun= true;
-            this.huLun= false;
+      this.xiaoLun = false;
+      this.shiLun = false;
+      this.yangLun = false;
+      this.jiaoLun = true;
+      this.huLun = false;
     },
     huXingLun() {
-            this.xiaoLun= false;
-            this.shiLun= false;
-            this.yangLun= false;
-            this.jiaoLun= false;
-            this.huLun= true;
+      this.xiaoLun = false;
+      this.shiLun = false;
+      this.yangLun = false;
+      this.jiaoLun = false;
+      this.huLun = true;
     },
     textDianPing() {
       var token = localStorage.getItem("token");
@@ -2329,46 +2439,45 @@ export default {
       }
     },
   },
-  beforeMount(){
-       let  mine = this.$store.state.style_mine;
-        if(mine==1){ //易得房样式
-            this.logo_text = "易得房";
-        }else if(mine==2){ //家园样式
-           this.logo_text = "家园";
-        }
-        this.getWidth();
+  beforeMount() {
+    let mine = this.$store.state.style_mine;
+    if (mine == 1) {
+      //易得房样式
+      this.logo_text = "易得房";
+    } else if (mine == 2) {
+      //家园样式
+      this.logo_text = "家园";
+    }
+    this.getWidth();
   },
   mounted() {
-    let truePrice =this.truePrice;
-    if(truePrice.length!==0){
-        if(this.basic.status=='在售'){
-            this.last_date = truePrice[truePrice.length-1].date;
-            this.price_show = true;
+    window.addEventListener("scroll", this.showliu);
+    let truePrice = this.truePrice;
+    if (truePrice.length !== 0) {
+      if (this.basic.status == "在售") {
+        this.last_date = truePrice[truePrice.length - 1].date;
+        this.price_show = true;
 
-            this.$nextTick(function () {
-            //  console.log(this);
-              let _this = this;
-              setTimeout(function(){
-                _this.drawLine("main");
-              },2000)
-            
-            });
-        }else if(this.basic.status=='待售'){
-              this.price_show = false;
-        }else if(this.basic.status=='售空'){
-              this.price_show = false;
-        }
-    }else{
-       this.price_show = false;
+        this.$nextTick(function () {
+          //  console.log(this);
+          let _this = this;
+          setTimeout(function () {
+            _this.drawLine("main");
+          }, 2000);
+        });
+      } else if (this.basic.status == "待售") {
+        this.price_show = false;
+      } else if (this.basic.status == "售空") {
+        this.price_show = false;
+      }
+    } else {
+      this.price_show = false;
     }
-
-
 
     //    kid和other
     let other = this.$router.currentRoute.query.other;
     let kid = this.$router.currentRoute.query.kid;
     if (kid == undefined && other == undefined) {
-     
     } else {
       sessionStorage.setItem("other", other);
       sessionStorage.setItem("kid", kid);
@@ -2378,39 +2487,29 @@ export default {
 
     this.$parent.$parent.heng_name = this.basic.name;
 
-
     this.$parent.$parent.saoma_telphone = this.common.phone;
 
-
-
-
-
-     let  token = localStorage.getItem('token');
-     let old_tel=localStorage.getItem("old_tel");
-      if(token && old_tel){
-          this.hongbao.tuan_text_tel=old_tel;
-          this.li_tel =old_tel;
-      }else {
-      }
-
-
-
+    let token = localStorage.getItem("token");
+    let old_tel = localStorage.getItem("old_tel");
+    if (token && old_tel) {
+      this.hongbao.tuan_text_tel = old_tel;
+      this.li_tel = old_tel;
+    } else {
+    }
 
     this.routerData = [
-       {
-         "name":`${this.common.city_info.current.city}楼盘`,
-         "to":'/searchpro'
-       },
-       {
-         "name":`${this.basic.name}`,
-         "to":''
-       }
+      {
+        name: `${this.common.city_info.current.city}楼盘`,
+        to: "/searchpro",
+      },
+      {
+        name: `${this.basic.name}`,
+        to: "",
+      },
     ];
 
-
-
     //改speed long  num
-    let  _this =this;
+    let _this = this;
     $(".rightBtn3")
       .eq(0)
       .click(function () {
@@ -2436,8 +2535,7 @@ export default {
             200
           );
       });
-  console.log(parseInt($(".ul3-long").eq(0).css("left")));
-
+    console.log(parseInt($(".ul3-long").eq(0).css("left")));
 
     $(".leftBtn3")
       .eq(0)
@@ -2480,15 +2578,14 @@ export default {
     }
 
     ////轮播图点击
-    $(".lun_xuan li").click(function() {
-      $(this)
-        .children("p")
-        .addClass("active");
-      $(this)
-        .siblings()
-        .children("p")
-        .removeClass("active");
+    $(".lun_xuan li").click(function () {
+      $(this).children("p").addClass("active");
+      $(this).siblings().children("p").removeClass("active");
     });
+    setTimeout(()=>{
+      this.$parent.$parent.liuShow()
+    },10000)
+   
   },
   watch: {
     $route() {
@@ -2497,37 +2594,40 @@ export default {
   },
   updated() {
     //右侧悬浮框
-     console.log($(".mid_box_left").offset(),$(".map").offset());
- //    console.log($(".mid_box_left").offset().top, $(".map").offset().top);
+    console.log($(".mid_box_left").offset(), $(".map").offset());
+    //    console.log($(".mid_box_left").offset().top, $(".map").offset().top);
 
+    if (
+      $(".mid_box_left").offset() !== undefined &&
+      $(".map").offset() !== undefined
+    ) {
+      let xuan_top = $(".mid_box_left").offset().top;
+      let hu_top = $(".map").offset().top;
 
-    if( $(".mid_box_left").offset()!==undefined && $(".map").offset()!==undefined){
-          let xuan_top = $(".mid_box_left").offset().top;
-          let hu_top = $(".map").offset().top;
-
-          let chazhi = hu_top - xuan_top;
-          window.onscroll = function () {
-            var top1 = document.documentElement.scrollTop || document.body.scrollTop; //浏览器兼容
-            if (top1 <= 800) {
-              $(".bang_box_home_de")
-                .css("position", "absolute")
-                .css({ top: "52px", right: "0", margin: 0 });
-            } else if (top1 >= 800 && top1 <= chazhi + 165) {
-              $(".bang_box_home_de").css("position", "fixed").css({
-                top: 10,
-                right: "50%",
-                "margin-right": "-600px",
-              });
-            } else if (top1 >= chazhi + 265) {
-              $(".bang_box_home_de")
-                .css("position", "absolute")
-                .css({
-                  top: chazhi - 530,
-                  right: "0",
-                  margin: 0,
-                });
-            }
-          };
+      let chazhi = hu_top - xuan_top;
+      window.onscroll = function () {
+        var top1 =
+          document.documentElement.scrollTop || document.body.scrollTop; //浏览器兼容
+        if (top1 <= 800) {
+          $(".bang_box_home_de")
+            .css("position", "absolute")
+            .css({ top: "52px", right: "0", margin: 0 });
+        } else if (top1 >= 800 && top1 <= chazhi + 165) {
+          $(".bang_box_home_de").css("position", "fixed").css({
+            top: 10,
+            right: "50%",
+            "margin-right": "-600px",
+          });
+        } else if (top1 >= chazhi + 265) {
+          $(".bang_box_home_de")
+            .css("position", "absolute")
+            .css({
+              top: chazhi - 530,
+              right: "0",
+              margin: 0,
+            });
+        }
+      };
     }
 
     //展开查看详情
@@ -2552,6 +2652,9 @@ export default {
     //     $(this).html("查看更多");
     //   }
     // });
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.showliu);
   },
 };
 </script>
@@ -2581,7 +2684,7 @@ export default {
     position: absolute;
     width: 29px;
     height: 15px;
-    background: rgba(62,172,240,.2);
+    background: rgba(62, 172, 240, 0.2);
     border-radius: 50%;
     left: 50%;
     margin-left: -15px;

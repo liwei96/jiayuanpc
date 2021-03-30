@@ -610,6 +610,20 @@ export default {
       // 深度观察监听
       deep: true,
     },
+    liuyan_box:{
+      handler(val) {
+        if (val.liu_flag==true) {
+          sessionStorage.setItem('isliu', 1)
+        }else{
+          sessionStorage.removeItem('isliu')
+          if (sessionStorage.getItem('isim')) {
+            sessionStorage.removeItem('isim')
+            this.$refs.chat.visible = true
+          }
+        }
+      },
+      deep: true
+    }
   },
   beforeMount() {
     this.getLayoutWidth();
