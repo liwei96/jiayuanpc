@@ -261,7 +261,15 @@ export default {
         }
        //   console.log(this.$parent.$refs.header)
     },
-
+    watch:{
+        show_bao(val) {
+            if(val==true) {
+            sessionStorage.setItem('isliu',1)
+            }else{
+            sessionStorage.removeItem('isliu')
+            }
+        }
+    }
 }
 </script>
 

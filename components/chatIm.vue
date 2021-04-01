@@ -1767,6 +1767,15 @@ export default {
   beforeDestroy() {
     clearInterval(this.timer);
   },
+  watch:{
+    visible(val){
+      if(val){
+        sessionStorage.setItem('isliu',1)
+      }else{
+        sessionStorage.removeItem('isliu')
+      }
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

@@ -623,6 +623,20 @@ export default {
         }
       },
       deep: true
+    },
+    baoming_tel:{
+      handler(val) {
+        if (val.telflag==true) {
+          sessionStorage.setItem('isliu', 1)
+        }else{
+          sessionStorage.removeItem('isliu')
+          if (sessionStorage.getItem('isim')) {
+            sessionStorage.removeItem('isim')
+            this.$refs.chat.visible = true
+          }
+        }
+      },
+      deep:true
     }
   },
   beforeMount() {
@@ -1051,8 +1065,10 @@ export default {
       this.$refs.chat.visible = false;
     },
     liuShow() {
-      this.liuyan_box.liu_flag = true;
-      this.$refs.chat.visible = false;
+      if (!sessionStorage.getItem('isliu')) {
+        this.liuyan_box.liu_flag = true;
+        this.$refs.chat.visible = false;
+      }
     },
     //右侧导航栏部分
     showChatBox() {

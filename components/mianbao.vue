@@ -131,7 +131,7 @@ export default {
     },
     //热门搜索
     getTextSou() {
-      var city = sessionStorage.getItem("city_id");
+      var city = parseInt(sessionStorage.getItem("city_id"));
       axios
         .post("/api/project/project_names", {
           city: city,

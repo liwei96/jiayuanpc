@@ -1902,6 +1902,7 @@ export default {
       }
     },
     youhuiShow() {
+      sessionStorage.setItem('isliu',1)
       this.hongbao.hong_tan = true;
     },
     lingYouHui(num) {
@@ -2582,15 +2583,26 @@ export default {
       $(this).children("p").addClass("active");
       $(this).siblings().children("p").removeClass("active");
     });
-    setTimeout(()=>{
-      this.$parent.$parent.liuShow()
-    },10000)
-   
+    if (!sessionStorage.getItem('isliu')) {
+      setTimeout(()=>{
+        this.$parent.$parent.liuShow()
+      },10000)
+    }
   },
   watch: {
     $route() {
       this.routerData = this.$route.matched;
     },
+    hongbao: {
+      handler(val){
+        if(val.hong_tan==true) {
+          sessionStorage.setItem('isliu',1)
+        }else{
+          sessionStorage.removeItem('isliu')
+        }
+      },
+      deep: true
+    }
   },
   updated() {
     //右侧悬浮框
