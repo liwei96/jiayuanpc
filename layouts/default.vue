@@ -5,7 +5,7 @@
     <my-chatim ref="chat"></my-chatim>
     <!-- 右侧导航栏 -->
     <div class="right_fixed" v-show="right_fixed">
-      <ul class="right_li">
+      <ul class="right_li" v-if="false">
         <li
           @mouseenter="liu_hover"
           :class="{ active: bg_flag.flag1 }"
@@ -108,6 +108,16 @@
         <div class="kaifa" v-show="waiting_show">
           <img src="~/assets/waiting.png" alt />
         </div>
+      </ul>
+      <ul class="right_lis" v-if="true">
+        <li class="chatim" @click="showChatBox">
+          <img src="~/assets/icon/left-chatim.gif" alt="">
+          <p>买房 <br/>咨询</p>
+        </li>
+        <li class="liuyan" @click="liuShow">
+          <img src="~/assets/icon/left-tiwen.png" alt="">
+          <p>留言 <br/>提问</p>
+        </li>
       </ul>
     </div>
     <!-- 快速登录弹框 -->
@@ -1790,10 +1800,10 @@ export default {
 }
 // 右侧导航
 .right_fixed {
-  width: 40px;
+  width: 80px;
   height: 100%;
-  background: #ffffff;
-  box-shadow: 0px 0px 15px 0px rgba(52, 71, 87, 0.24);
+  // background: #ffffff;
+  // box-shadow: 0px 0px 15px 0px rgba(52, 71, 87, 0.24);
   position: fixed;
   right: 0px;
   top: 0px;
@@ -1865,6 +1875,37 @@ export default {
       em {
         color: #ff9a26;
       }
+    }
+  }
+  .right_lis {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    li {
+      width: 60px;
+      margin-right: 20px;
+      text-align: center;
+      height: 95px;
+      cursor: pointer;
+      img {
+        margin-top: 16px;
+      }
+    }
+    .chatim {
+      border-radius: 8px 8px 0 0;
+      background: #2AC66D;
+      font-size: 14px;
+      font-family: Microsoft YaHei;
+      font-weight: bold;
+      color: #FFFFFF;
+    }
+    .liuyan {
+      background: #9DA3A6;
+      border-radius: 0 0 8px 8px;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-family: Microsoft YaHei;
+      font-weight: bold;
     }
   }
   .yewuyuan {
