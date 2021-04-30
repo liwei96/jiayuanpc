@@ -1,82 +1,117 @@
 <template>
   <div class="loudandong">
-    <my-header 
-              :all="common.city_info.all"
-              :telphone="common.phone"
-              ref="header"></my-header>
+    <my-header
+      :all="common.city_info.all"
+      :telphone="common.phone"
+      ref="header"
+    ></my-header>
     <my-mianbao :router_data="routerData"></my-mianbao>
     <div class="type">
       <div class="div1">
         <div class="pro_name">
           <p>
-            <span class="span1">{{building.name}}</span>
-            <i>{{building.state}}</i>
-            <em>{{building.type}}</em>
+            <span class="span1">{{ building.name }}</span>
+            <i>{{ building.state }}</i>
+            <em>{{ building.type }}</em>
           </p>
           <ul>
-            <li>{{building.decorate}}</li>
-            <li v-for="(item,index ) in building.features" :key="index">{{item.value}}</li>
+            <li>{{ building.decorate }}</li>
+            <li v-for="(item, index) in building.features" :key="index">
+              {{ item.value }}
+            </li>
           </ul>
         </div>
       </div>
 
       <div class="nav_list">
-           <ul>                                           
-                <li>
-                <nuxt-link :to="`/content/${building.id}`">楼盘主页</nuxt-link></li>
-                <li> <nuxt-link :to="`/loudetail/${building.id}`">楼盘详情</nuxt-link></li>
-                <li> <nuxt-link :to="`/prohuxing/${building.id}`">主力户型</nuxt-link></li>
-                <li> <nuxt-link :to="`/prodong/${building.id}?page=1`">楼盘动态</nuxt-link></li>
-                <li> <nuxt-link :to="`/propic/${building.id}`">楼盘相册</nuxt-link></li>
-                <li> <nuxt-link :to="`/prowenda/${building.id}?page=1`">楼盘问问</nuxt-link></li>
-                <li> <nuxt-link :to="`/prodian/${building.id}?page=1`">楼盘点评</nuxt-link></li>
-            </ul> 
-             <span>咨询热线：{{common.phone.replace(",","转")}}</span>
+        <ul>
+          <li>
+            <nuxt-link :to="`/content/${building.id}`">楼盘主页</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link :to="`/loudetail/${building.id}`">楼盘详情</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link :to="`/prohuxing/${building.id}`">主力户型</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link :to="`/prodong/${building.id}?page=1`"
+              >楼盘动态</nuxt-link
+            >
+          </li>
+          <li>
+            <nuxt-link :to="`/propic/${building.id}`">楼盘相册</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link :to="`/prowenda/${building.id}?page=1`"
+              >楼盘问问</nuxt-link
+            >
+          </li>
+          <li>
+            <nuxt-link :to="`/prodian/${building.id}?page=1`"
+              >楼盘点评</nuxt-link
+            >
+          </li>
+        </ul>
+        <span>咨询热线：{{ common.phone.replace(",", "转") }}</span>
       </div>
 
       <div class="type_con">
         <div class="dong_list">
           <div class="dong_box">
-            <h4>{{info.title}}房源动态</h4>
+            <h4>{{ info.title }}房源动态</h4>
             <div class="pro_xin">
               <span>
                 发布时间:
-                <em>{{info.time}}</em>
+                <em>{{ info.time }}</em>
               </span>
               <span>
                 来源:
-                <em>{{logo_text}}新房</em>
+                <em>{{ logo_text }}新房</em>
               </span>
               <!-- <span>阅读:<em>1873</em></span> -->
             </div>
-            <p>{{info.content}}</p>
+            <p>{{ info.content }}</p>
           </div>
           <!-- 单个项目 -->
           <div class="pro_box">
             <img :src="building.img" alt @click="goContent(building.id)" />
             <div class="lou_xinxi" @click="goContent(building.id)">
               <h3>
-                {{building.name}}
-                <span>{{building.state}}</span>
+                {{ building.name }}
+                <span>{{ building.state }}</span>
               </h3>
               <p class="price">
                 均价
-                <span>{{building.price}}</span>元/m²起
+                <span>{{ building.price }}</span
+                >元/m²起
               </p>
-              <p class="dizhi">{{building.country}}: {{building.address}}</p>
-              <p class="tel">{{common.phone.replace(",","转")}}</p>
+              <p class="dizhi">
+                {{ building.country }}: {{ building.address }}
+              </p>
+              <p class="tel">{{ common.phone.replace(",", "转") }}</p>
               <p class="more">致电售楼处了解更多</p>
             </div>
             <div class="name_form">
               <span>姓名:</span>
-              <input type="text" placeholder="请输入姓名" v-model="name" class="i_name" />
+              <input
+                type="text"
+                placeholder="请输入姓名"
+                v-model="name"
+                class="i_name"
+              />
               <br />
               <span>电话:</span>
-              <input type="text" placeholder="请输入电话" v-model="phone" maxlength="11"/>
+              <input
+                type="text"
+                placeholder="请输入电话"
+                v-model="phone"
+                maxlength="11"
+              />
               <br />
               <p>
                 <el-checkbox v-model="checked"></el-checkbox>我已阅读并同意
-                <a @click="goYongxie">《{{logo_text}}用户协议》</a>
+                <a @click="goYongxie">《{{ logo_text }}用户协议》</a>
               </p>
               <button @click="baoMing(103)">报名看房</button>
             </div>
@@ -85,31 +120,41 @@
           <button class="wang" @click="wangQiDong">
             <em class="iconfont"></em>往期动态
           </button>
-         <!--报名框-->
-         <div class="bao_box">
-            <p>这个楼盘有什么优缺点？开发商资质如何？买房需要注意什么？更多问题，敬请免费咨询</p>
+          <!--报名框-->
+          <div class="bao_box">
+            <p>
+              这个楼盘有什么优缺点？开发商资质如何？买房需要注意什么？更多问题，敬请免费咨询
+            </p>
             <div class="bao_input">
-                  <input type="text" placeholder="请输入您的手机号" maxlength="11" v-model="mian_tel">
-                  <button @click="baoMing(104)">免费咨询</button>
+              <input
+                type="text"
+                placeholder="请输入您的手机号"
+                maxlength="11"
+                v-model="mian_tel"
+              />
+              <button @click="baoMing(104)">免费咨询</button>
             </div>
-         </div>
-
+          </div>
         </div>
 
         <div class="rig_dingyue">
-            <my-right-dao :daolist="articles"></my-right-dao>
-            <yu-kan-fang :img_bg="bgImg" :text_tishi="text" ref="right_bao"></yu-kan-fang>
+          <my-right-dao :daolist="articles"></my-right-dao>
+          <yu-kan-fang
+            :img_bg="bgImg"
+            :text_tishi="text"
+            ref="right_bao"
+          ></yu-kan-fang>
         </div>
-       
       </div>
-       <!-- 图形验证码组件 -->
-        <my-tu-yan ref="imgyan"
-            :point="103 "
-            :project_id="this.building.id"
-            :name="''" 
-            :myremark="myremark"
-            :myphone="this.telphone"
-         ></my-tu-yan>
+      <!-- 图形验证码组件 -->
+      <my-tu-yan
+        ref="imgyan"
+        :point="103"
+        :project_id="this.building.id"
+        :name="''"
+        :myremark="myremark"
+        :myphone="this.telphone"
+      ></my-tu-yan>
 
       <!-- 图形验证码弹框 -->
       <div class="loginyan" v-show="tuYanFlag">
@@ -123,13 +168,15 @@
           :imgs="imgs"
           ref="slideblock"
         ></slide-verify>
-        <div class="massage">{{msg}}</div>
+        <div class="massage">{{ msg }}</div>
       </div>
       <!-- 底部 -->
-      <my-footer :c_zhi_citys="common.city_info.all" 
+      <my-footer
+        :c_zhi_citys="common.city_info.all"
         :c_hot_search="common.hot_search"
         :c_friendlink="common.friend_links"
-        :footer_tel="common.phone"></my-footer>
+        :footer_tel="common.phone"
+      ></my-footer>
     </div>
   </div>
 </template>
@@ -154,20 +201,24 @@ export default {
     "my-right-dao": aboutdao,
     "my-header": header,
     "my-mianbao": mianbao,
-    "my-footer":footer,
-     'my-tu-yan':tuyanMa,
+    "my-footer": footer,
+    "my-tu-yan": tuyanMa,
   },
   head() {
     return {
-      title:this.common.header.title,
+      title: this.common.header.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.common.header.description
+          content: this.common.header.description,
         },
-        { hid: "Keywords", name: "Keywords", content:this.common.header.keywords}
-      ]
+        {
+          hid: "Keywords",
+          name: "Keywords",
+          content: this.common.header.keywords,
+        },
+      ],
     };
   },
   validate({ params }) {
@@ -180,17 +231,17 @@ export default {
       return false;
     }
   },
-  async asyncData({ app, store, error, params,query}) {
+  async asyncData({ app, store, error, params, query }) {
     let token = store.state.token;
     let kid = store.state.kid;
     let other = store.state.other;
-     let uuid = query.uuid;
-       let  host = store.state.hostname;
-      if(uuid && uuid!=="undefined" && uuid!=="null"){
-        uuid =uuid;
-      }else{
-         uuid="";
-      }
+    let uuid = query.uuid;
+    let host = store.state.hostname;
+    if (uuid && uuid !== "undefined" && uuid !== "null") {
+      uuid = uuid;
+    } else {
+      uuid = "";
+    }
     if (kid == undefined) {
       kid = "";
     }
@@ -250,19 +301,18 @@ export default {
       common: {},
       comtel: "",
       project_city: {},
-      articles:[],
+      articles: [],
       bgImg: {
-              backgroundImage: "url(" + require("~/assets/loudong_top.jpg") + ")",
-              backgroundRepeat: "no-repeat",
-          }, 
-      text:'订阅最新动态，楼盘最新情报抢先知道，帮您找准买房好时机',
-      myremark:'',
-      telphone:'', //右侧报名框,
-      mian_tel:'',
-      routerData:[],
+        backgroundImage: "url(" + require("~/assets/loudong_top.jpg") + ")",
+        backgroundRepeat: "no-repeat",
+      },
+      text: "订阅最新动态，楼盘最新情报抢先知道，帮您找准买房好时机",
+      myremark: "",
+      telphone: "", //右侧报名框,
+      mian_tel: "",
+      routerData: [],
 
-      logo_text:"家园"
-
+      logo_text: "家园",
     };
   },
   methods: {
@@ -306,18 +356,18 @@ export default {
     },
     onSuccess() {
       this.msg = "验证通过";
-       var posit = sessionStorage.getItem("bao_id");
-       let phone ='';
-       let remark= '';
-       let name= '';
-      if(posit==104){
-         phone = this.mian_tel;
-         remark = "单个楼盘动态页+免费咨询";
-         name = ''
-      }else if(posit==103){
-          phone = this.phone;
-          remark = "单个楼盘动态页+报名看房";
-          name = this.name
+      var posit = sessionStorage.getItem("bao_id");
+      let phone = "";
+      let remark = "";
+      let name = "";
+      if (posit == 104) {
+        phone = this.mian_tel;
+        remark = "单个楼盘动态页+免费咨询";
+        name = "";
+      } else if (posit == 103) {
+        phone = this.phone;
+        remark = "单个楼盘动态页+报名看房";
+        name = this.name;
       }
 
       let ip = ip_arr["ip"];
@@ -335,17 +385,17 @@ export default {
       } else {
         axios
           .post("/front/flow/sign", {
-              tel:phone,
-              ip:ip,
-              page:10,//、家园PC 必传
-              project:project,//  项目id
-              city:city, //城市id
-              position:posit, //位置（见下面 position位置表格）
-              remark:remark, //请填写位置对应的名，如“详细楼盘信息”，如果是咨询详细户型请加上户型名
-              source:"线上推广1",
-              other:other,
-              kid:kid,
-              name:name, // 客户姓名，没有就不填
+            tel: phone,
+            ip: ip,
+            page: 10, //、家园PC 必传
+            project: project, //  项目id
+            city: city, //城市id
+            position: posit, //位置（见下面 position位置表格）
+            remark: remark, //请填写位置对应的名，如“详细楼盘信息”，如果是咨询详细户型请加上户型名
+            source: "线上推广1",
+            other: other,
+            kid: kid,
+            name: name, // 客户姓名，没有就不填
           })
           .then((res) => {
             if (res.data.code == 200) {
@@ -357,11 +407,14 @@ export default {
               console.log(res.data.message);
             }
 
-              if(res.data.code==500  && res.data.message=="已成功为您订阅了该服务"){
-                      this.$message.success(res.data.message);
-                      this.tuYanFlag =false; 
-                      this.$refs.slideblock.reset();
-              }
+            if (
+              res.data.code == 500 &&
+              res.data.message == "已成功为您订阅了该服务"
+            ) {
+              this.$message.success(res.data.message);
+              this.tuYanFlag = false;
+              this.$refs.slideblock.reset();
+            }
           });
       }
     },
@@ -373,40 +426,40 @@ export default {
     },
     baoMing(parms) {
       sessionStorage.setItem("bao_id", parms);
-    
+
       var pattern = new RegExp("^1[345678]\\d{9}$");
-      if(parms==103){
-          var tel = this.phone;
-          var name = this.name;
-        if(this.checked==true){
-            if (tel !== "" && name !== "") {
-              if (tel == "") {
-                this.$message.error("手机号不能为空");
-              } else if (!pattern.test(tel)) {
-                this.$message.error("请输入正确的手机号");
-              } else {
-                this.tuYanFlag = true;
-              }
+      if (parms == 103) {
+        var tel = this.phone;
+        var name = this.name;
+        if (this.checked == true) {
+          if (tel !== "" && name !== "") {
+            if (tel == "") {
+              this.$message.error("手机号不能为空");
+            } else if (!pattern.test(tel)) {
+              this.$message.error("请输入正确的手机号");
             } else {
-              this.$message.error("姓名和手机号不能为空");
+              this.tuYanFlag = true;
             }
-        }else{
-           this.$message.error("请勾选用户协议");
+          } else {
+            this.$message.error("姓名和手机号不能为空");
+          }
+        } else {
+          this.$message.error("请勾选用户协议");
         }
-      }else if(parms==104){
-          var tel = this.mian_tel;
-           if (tel == "") {
-                this.$message.error("手机号不能为空");
-              } else if (!pattern.test(tel)) {
-                this.$message.error("请输入正确的手机号");
-              } else {
-                this.tuYanFlag = true;
-              }
+      } else if (parms == 104) {
+        var tel = this.mian_tel;
+        if (tel == "") {
+          this.$message.error("手机号不能为空");
+        } else if (!pattern.test(tel)) {
+          this.$message.error("请输入正确的手机号");
+        } else {
+          this.tuYanFlag = true;
+        }
       }
     },
     goYongxie() {
       this.telflag = false;
-      this.$router.push('/we/fuwu')
+      this.$router.push("/we/fuwu");
     },
     pageChange(num) {
       var pid = this.$route.params.id;
@@ -496,46 +549,47 @@ export default {
     //     }
     //   }
     // }
-       let  mine = this.$store.state.style_mine;
-        if(mine==1){ //易得房样式
-            this.logo_text = "易得房";
-        }else if(mine==2){ //家园样式
-           this.logo_text = "家园";
-        }
+    let mine = this.$store.state.style_mine;
+    if (mine == 1) {
+      //易得房样式
+      this.logo_text = "易得房";
+    } else if (mine == 2) {
+      //家园样式
+      this.logo_text = "家园";
+    }
   },
   mounted() {
-      this.$parent.$parent.project_id_im = this.building.id;
-      this.$parent.$parent.saoma_telphone = this.common.phone;
+    this.$parent.$parent.project_id_im = this.building.id;
+    this.$parent.$parent.saoma_telphone = this.common.phone;
 
+    let token = localStorage.getItem("token");
+    let old_tel = localStorage.getItem("old_tel");
+    if (token && old_tel) {
+      this.phone = old_tel;
+      this.mian_tel = old_tel;
+      this.$refs.right_bao.telphone = old_tel;
+    } else {
+    }
 
-      let  token = localStorage.getItem('token');
-      let old_tel=localStorage.getItem("old_tel");
-      if(token && old_tel){
-          this.phone=old_tel;
-          this.mian_tel =old_tel;
-          this.$refs.right_bao.telphone =old_tel;
-      }else {
-      }
-     
-     this.routerData = [
-       {
-         "name":`${this.common.city_info.current.city}楼盘`,
-         "to":'/searchpro'
-       },
-       {
-         "name":`${this.building.name}`,
-         "to":`/content/${this.building.id}`
-       },
-        {
-         "name":`${this.building.name}动态`,
-         "to":`/prodong/${this.building.id}?page=1`
-       },
-        {
-         "name":`${this.info.title}动态`,
-         "to":""
-       }
+    this.routerData = [
+      {
+        name: `${this.common.city_info.current.city}楼盘`,
+        to: "/searchpro",
+      },
+      {
+        name: `${this.building.name}`,
+        to: `/content/${this.building.id}`,
+      },
+      {
+        name: `${this.building.name}动态`,
+        to: `/prodong/${this.building.id}?page=1`,
+      },
+      {
+        name: `${this.info.title}动态`,
+        to: "",
+      },
     ];
-    this.myremark= "单个楼盘问答+订阅楼盘动态";
+    this.myremark = "单个楼盘问答+订阅楼盘动态";
     // this.getPhone();
     // this.$parent.$parent.$children[0].com_tel = this.common.phone.replace(
     //   ",",
@@ -624,18 +678,18 @@ export default {
             line-height: 24px;
             margin-left: 10px;
           }
-          em{
-              width: 50px;
-              height: 24px;
-              border: 1px solid #AFB0B3;
-              border-radius: 3px;
-              font-size: 14px;
-              font-family: "Microsoft YaHei";
-              font-weight: 400;
-              color: #969799;
-              display: inline-block;
-              text-align: center;
-              line-height: 24px;
+          em {
+            width: 50px;
+            height: 24px;
+            border: 1px solid #afb0b3;
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: "Microsoft YaHei";
+            font-weight: 400;
+            color: #969799;
+            display: inline-block;
+            text-align: center;
+            line-height: 24px;
           }
         }
         ul {
@@ -690,35 +744,35 @@ export default {
         }
       }
     }
-    .nav_list{
-        width: 1200px;
-        height: 44px;
-        background: #F5F5F5;
-        border-radius: 4px;
-        margin: 0 auto;
-        ul{
-            li{
-                float: left;
-                line-height: 44px;
-                color:#646566 ;
-                margin-right:40px ;
-                a{
-                     color:#646566 ;
-                }
-            }
-            li:first-child{
-                margin-left: 38px;
-            }
+    .nav_list {
+      width: 1200px;
+      height: 44px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      margin: 0 auto;
+      ul {
+        li {
+          float: left;
+          line-height: 44px;
+          color: #646566;
+          margin-right: 40px;
+          a {
+            color: #646566;
+          }
         }
-        span{
-            font-size: 16px;
-            font-family: "Microsoft YaHei";
-            font-weight: 400;
-            color: #000000;
-            line-height: 44px;
-            float: right;
-            padding-right: 21px;
+        li:first-child {
+          margin-left: 38px;
         }
+      }
+      span {
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+        font-weight: 400;
+        color: #000000;
+        line-height: 44px;
+        float: right;
+        padding-right: 21px;
+      }
     }
 
     .div2 {
@@ -963,64 +1017,64 @@ export default {
         line-height: 18px;
         margin-top: 49px;
         cursor: pointer;
-        margin-bottom:70px;
+        margin-bottom: 70px;
       }
-      .bao_box{
+      .bao_box {
         width: 840px;
         height: 68px;
-        background: #FFFFFF;
-        border-top: 6px solid #2AC66D;
-        border-bottom: 6px solid #2AC66D;
-        border-left: 10px solid #2AC66D;
-        border-right: 10px solid #2AC66D;
+        background: #ffffff;
+        border-top: 6px solid #2ac66d;
+        border-bottom: 6px solid #2ac66d;
+        border-left: 10px solid #2ac66d;
+        border-right: 10px solid #2ac66d;
         margin-bottom: 100px;
-           p{
+        p {
+          font-size: 14px;
+          font-family: "Microsoft YaHei";
+          font-weight: 400;
+          color: #464955;
+          line-height: 20px;
+          float: left;
+          width: 385px;
+          margin-left: 30px;
+          margin-top: 8px;
+        }
+        .bao_input {
+          width: 300px;
+          height: 36px;
+          background: #f2f5f7;
+          border-radius: 3px;
+          float: right;
+          display: flex;
+          margin-right: 30px;
+          margin-top: 10px;
+          input {
+            width: 204px;
+            height: 35px;
+            border: none;
+            background: #f2f5f7;
+            color: #464855;
+            text-indent: 1em;
+          }
+          button {
+            width: 96px;
+            height: 36px;
+            background: #2ac66d;
+            border-radius: 3px;
             font-size: 14px;
             font-family: "Microsoft YaHei";
             font-weight: 400;
-            color: #464955;
-            line-height: 20px;
-            float: left;
-            width: 385px;
-            margin-left: 30px;
-            margin-top: 8px;
-           }
-           .bao_input{
-                width: 300px;
-                height: 36px;
-                background: #F2F5F7;
-                border-radius: 3px;
-                float: right;
-                display: flex;
-                margin-right: 30px;
-                margin-top: 10px;
-               input{
-                   width: 204px;
-                   height: 35px;
-                   border: none;
-                   background: #F2F5F7;
-                   color: #464855;
-                   text-indent: 1em;
-               }
-               button{
-                   width: 96px;
-                    height: 36px;
-                    background: #2AC66D;
-                    border-radius: 3px;
-                    font-size: 14px;
-                    font-family: "Microsoft YaHei";
-                    font-weight: 400;
-                    color: #FFFFFF;
-                    line-height: 32px;
-                    border: none;
-               }
-           }
+            color: #ffffff;
+            line-height: 32px;
+            border: none;
+          }
+        }
       }
       .rig_dingyue {
         width: 360px;
         height: auto;
         float: right;
-        margin-top:40px;
+        margin-top: 40px;
         h6 {
           font-size: 18px;
           font-family: "Microsoft YaHei";

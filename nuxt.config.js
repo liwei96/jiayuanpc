@@ -26,7 +26,9 @@ export default {
       { src : 'http://ll.edefang.net/getIp.php'},
       // { src : 'https://cache.amap.com/lbs/static/addToolbar.js'},
       { src : '/PlaceSearchRender.js'},
-      { src : 'https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js'},
+      {
+        src: 'https://cdn.bootcdn.net/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js'
+      },
       { src : 'https://cdn.bootcdn.net/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'}
     ],
     link: [

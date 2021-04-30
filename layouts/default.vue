@@ -111,12 +111,12 @@
       </ul>
       <ul class="right_lis" v-if="true">
         <li class="chatim" @click="showChatBox">
-          <img src="~/assets/icon/left-chatim.gif" alt="">
-          <p>买房 <br/>咨询</p>
+          <img src="~/assets/icon/left-chatim.gif" alt="" />
+          <p>买房 <br />咨询</p>
         </li>
         <li class="liuyan" @click="liuShow">
-          <img src="~/assets/icon/left-tiwen.png" alt="">
-          <p>留言 <br/>提问</p>
+          <img src="~/assets/icon/left-tiwen.png" alt="" />
+          <p>留言 <br />提问</p>
         </li>
       </ul>
     </div>
@@ -241,7 +241,7 @@
           </div>
 
           <div class="liu_con">
-            <p class="tip">{{ baoming_tel.tan_content }}</p>
+            <p class="tip" v-html="baoming_tel.tan_content"></p>
             <input
               type="text"
               placeholder="输入您的手机号码"
@@ -266,7 +266,7 @@
             <input
               type="button"
               class="fan_btn"
-              value="立即订阅"
+              :value="btntxt"
               @click="TuYanShou"
             />
           </div>
@@ -369,44 +369,46 @@
       </div>
     </div>
     <!-- 留言弹框 -->
-    <div class="liuyan_box" v-show="liuyan_box.liu_flag">
-      <div class="liuyan">
-        <div class="top">
-          <h1>留言提问</h1>
-          <div class="guan">
-            <i
-              class="iconfont iconchahao"
-              id="fan_close"
-              @click="closeliuTan"
-            ></i>
+    <transition name="slide-fade">
+      <div class="liuyan_box" v-show="liuyan_box.liu_flag">
+        <div class="liuyan">
+          <div class="tit">
+            <div class="top">
+              <h1>留言提问</h1>
+              <div class="guan">
+                <i
+                  class="iconfont iconchahao"
+                  id="fan_close"
+                  @click="closeliuTan"
+                ></i>
+              </div>
+            </div>
+            <p>
+              您遇到的问题或者建议反馈给我们,也可以向我们了解 更多房产相关信息
+            </p>
+          </div>
+          <div class="liu_content">
+            <h1>您的问题</h1>
+            <el-input
+              type="textarea"
+              placeholder="在这里输入您的问题"
+              v-model="liuyan_box.textarea"
+              maxlength="50"
+              show-word-limit
+            >
+            </el-input>
+            <h2>联系方式</h2>
+            <input
+              type="text"
+              placeholder="输入您的手机号码"
+              v-model="liu_tel_phone"
+              maxlength="11"
+            />
+            <button @click="tiJiaoLiu">提交</button>
           </div>
         </div>
-        <p>
-          感谢您对{{ logo_text }}的支持与关注，请将您遇到的问题或者建议反馈给
-          我们,也可以向我们了解更多房产相关信息
-        </p>
-        <div class="liu_content">
-          <h1>您的问题</h1>
-          <el-input
-            type="textarea"
-            placeholder="在这里输入您的问题"
-            v-model="liuyan_box.textarea"
-            maxlength="50"
-            show-word-limit
-          >
-          </el-input>
-          <h2>联系方式</h2>
-          <input
-            type="text"
-            placeholder="输入您的手机号码"
-            v-model="liu_tel_phone"
-            maxlength="11"
-          />
-          <button @click="tiJiaoLiu">提交</button>
-        </div>
       </div>
-    </div>
-
+    </transition>
     <!-- 活动规则弹框 -->
     <div class="rules_box" v-show="rule_model">
       <div class="rules">
@@ -436,6 +438,23 @@
           <p>
             详细活动方案请致电{{ logo_text }}客服电话：
             <span>400-718-6686</span> 注：活动最终解释权归{{ logo_text }}所有
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- 活动规则弹框 -->
+    <div class="rules_box" v-show="guizi">
+      <div class="rules rules1">
+        <h4>
+          活动规则
+          <span class="iconfont iconchahao" @click="guizi = false"></span>
+        </h4>
+        <div class="content_box">
+          <p>
+            即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
+          </p>
+          <p>
+             注：活动最终解释权归{{ logo_text }}所有
           </p>
         </div>
       </div>
@@ -479,6 +498,8 @@ export default {
   },
   data() {
     return {
+      btntxt: '立即订阅',
+      guizi: false,
       loginTan: false,
       checked: true,
       tel: "",
@@ -620,34 +641,35 @@ export default {
       // 深度观察监听
       deep: true,
     },
-    liuyan_box:{
+    liuyan_box: {
       handler(val) {
-        if (val.liu_flag==true) {
-          sessionStorage.setItem('isliu', 1)
-        }else{
-          sessionStorage.removeItem('isliu')
-          if (sessionStorage.getItem('isim')) {
-            sessionStorage.removeItem('isim')
-            this.$refs.chat.visible = true
+        if (val.liu_flag == true) {
+          sessionStorage.setItem("isliu", 1);
+        } else {
+          sessionStorage.removeItem("isliu");
+          if (sessionStorage.getItem("isim")) {
+            sessionStorage.removeItem("isim");
+            this.$refs.chat.visible = true;
           }
         }
       },
-      deep: true
+      deep: true,
     },
-    baoming_tel:{
+    baoming_tel: {
       handler(val) {
-        if (val.telflag==true) {
-          sessionStorage.setItem('isliu', 1)
-        }else{
-          sessionStorage.removeItem('isliu')
-          if (sessionStorage.getItem('isim')) {
-            sessionStorage.removeItem('isim')
-            this.$refs.chat.visible = true
+        if (val.telflag == true) {
+          sessionStorage.setItem("isliu", 1);
+        } else {
+          this.btntxt = '立即订阅'
+          sessionStorage.removeItem("isliu");
+          if (sessionStorage.getItem("isim")) {
+            sessionStorage.removeItem("isim");
+            this.$refs.chat.visible = true;
           }
         }
       },
-      deep:true
-    }
+      deep: true,
+    },
   },
   beforeMount() {
     this.getLayoutWidth();
@@ -964,6 +986,10 @@ export default {
         project = id;
       } else if (route_name == "prodian-id") {
         project = id;
+      } else if (route_name == "hudetail-id") {
+        project = id;
+      } else if (route_name == "prohuxing") {
+        project = id;
       } else if (route_name == "loudianpage-id") {
         project = this.project_id_im;
       } else if (route_name == "prowenpage-id") {
@@ -1020,12 +1046,16 @@ export default {
         project = id;
       } else if (route_name == "prodian-id") {
         project = id;
+      } else if (route_name == "hudetail-id") {
+        project = id;
+      } else if (route_name == "prohuxing") {
+        project = id;
       } else if (route_name == "loudianpage-id") {
-        project = this.$parent.project_id_im;
+        project = this.project_id_im;
       } else if (route_name == "prowenpage-id") {
-        project = this.$parent.project_id_im;
+        project = this.project_id_im;
       } else if (route_name == "loudongpage-id") {
-        project = this.$parent.project_id_im;
+        project = this.project_id_im;
       } else {
         project = "";
       }
@@ -1075,7 +1105,7 @@ export default {
       this.$refs.chat.visible = false;
     },
     liuShow() {
-      if (!sessionStorage.getItem('isliu')) {
+      if (!sessionStorage.getItem("isliu")) {
         this.liuyan_box.liu_flag = true;
         this.$refs.chat.visible = false;
       }
@@ -1760,10 +1790,14 @@ export default {
 /deep/ .el-textarea {
   height: 100px;
   .el-textarea__inner {
-    height: 100px;
+    height: 90px;
     border: none;
     background: #f8f8f8;
     font-family: "Microsoft YaHei";
+    resize: none;
+  }
+  .el-input__count {
+    bottom: 15px;
   }
 }
 .placeholderColor(@color:#0094ff) {
@@ -1880,7 +1914,7 @@ export default {
   .right_lis {
     position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate(0, -80%);
     li {
       width: 60px;
       margin-right: 20px;
@@ -1892,17 +1926,17 @@ export default {
       }
     }
     .chatim {
-      border-radius: 8px 8px 0 0;
-      background: #2AC66D;
+      border-radius: 4px 4px 0 0;
+      background: #2ac66d;
       font-size: 14px;
       font-family: Microsoft YaHei;
       font-weight: bold;
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .liuyan {
-      background: #9DA3A6;
-      border-radius: 0 0 8px 8px;
-      color: #FFFFFF;
+      background: #9da3a6;
+      border-radius: 0 0 4px 4px;
+      color: #ffffff;
       font-size: 14px;
       font-family: Microsoft YaHei;
       font-weight: bold;
@@ -3063,38 +3097,48 @@ export default {
 }
 /*留言弹框*/
 .liuyan_box {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
+  width: 300px;
+  height: 385px;
   background: rgba(0, 0, 0, 0.4);
   position: fixed;
-  top: 0;
-  left: 0;
+  bottom: 20px;
+  right: 20px;
   z-index: 2000;
   display: block;
+  border-radius: 4px;
   cursor: pointer;
   .liuyan {
-    width: 400px;
+    width: 300px;
     height: 400px;
     background: rgba(255, 255, 255, 1);
-    border-radius: 6px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding-left: 40px;
-    padding-right: 40px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 30px 0px rgba(4, 0, 0, 0.08);
+    overflow: hidden;
+    // top: 50%;
+    bottom: 0px;
+    right: 0px;
+    // transform: translate(-50%, -50%);
+    // padding-left: 40px;
+    // padding-right: 40px;
+    .tit {
+      height: 100px;
+      background: url(~assets/liutopimg.png);
+    }
     .top {
-      height: 66px;
+      height: 50px;
       position: relative;
       h1 {
-        font-size: 22px;
+        font-size: 16px;
         font-weight: bold;
-        color: #333334;
+        color: #ffffff;
         line-height: 24px;
         position: absolute;
         transform: translate(-50%);
         left: 50%;
-        top: 25px;
+        top: 20px;
       }
       .guan {
         width: 24px;
@@ -3104,7 +3148,7 @@ export default {
         text-align: center;
         position: absolute;
         top: 12px;
-        right: -24px;
+        right: 20px;
         i {
           font-size: 18px;
           text-align: center;
@@ -3119,17 +3163,22 @@ export default {
     }
     p {
       font-size: 14px;
-      font-family: "Microsoft YaHei";
+      font-family: Microsoft YaHei;
       font-weight: 400;
-      color: #333334;
-      line-height: 20px;
+      color: #ffffff;
+      line-height: 18px;
+      width: 256px;
+      position: relative;
+      left: 50%;
+      margin-left: -128px;
     }
     .liu_content {
+      padding: 0 20px;
       h1 {
         font-size: 14px;
         font-family: "Microsoft YaHei";
         font-weight: bold;
-        color: #333333;
+        color: #323232;
         line-height: 14px;
         margin-top: 13px;
         margin-bottom: 10px;
@@ -3144,7 +3193,7 @@ export default {
         margin-bottom: 10px;
       }
       input {
-        width: 400px;
+        width: 100%;
         height: 35px;
         border: 1px solid #cccccc;
         border-radius: 4px;
@@ -3154,9 +3203,9 @@ export default {
       }
       .placeholderColor(#7d7f80);
       button {
-        width: 400px;
+        width: 100%;
         height: 34px;
-        background: #2ac66e;
+        background: linear-gradient(45deg, #2ac682, #46c4ab);
         border-radius: 4px;
         font-size: 14px;
         font-family: "Microsoft YaHei";
@@ -3228,6 +3277,10 @@ export default {
         }
       }
     }
+  }
+  .rules1 {
+    width: 480px;
+    height: 240px;
   }
 }
 

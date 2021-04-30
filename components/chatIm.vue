@@ -626,6 +626,10 @@ export default {
           project = id;
         } else if (route_name == "prodian-id") {
           project = id;
+        } else if (route_name == "hudetail-id") {
+          project = id;
+        } else if (route_name == "prohuxing") {
+          project = id;
         } else if (route_name == "loudianpage-id") {
           project = this.$parent.project_id_im;
         } else if (route_name == "prowenpage-id") {
@@ -657,6 +661,9 @@ export default {
             })
             .then((res) => {
               if (res.data.code == 200) {
+                this.$message.success(res.data.message);
+                this.baogao_show = false;
+              }else{
                 this.$message.success(res.data.message);
                 this.baogao_show = false;
               }
@@ -936,7 +943,7 @@ export default {
 
           let head_img = res.from.head;
           if (!sessionStorage.getItem('isliu')) {
-            this.visible = true
+            this.$parent.showChatBox()
           }else {
             sessionStorage.setItem('isim',1)
             // if (this.visible == false) {

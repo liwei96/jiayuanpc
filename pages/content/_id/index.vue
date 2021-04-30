@@ -445,6 +445,20 @@
               </div>
             </div>
           </div>
+          <!-- 送手机 -->
+          <div class="phone-huo" v-if="participate!=0">
+            <div class="title">
+              <h4>活动优惠</h4>
+              <span @click="showguizi"
+                >活动规则</span
+              >
+            </div>
+            <div class="imgbox">
+              <img src="~/assets/phone-huo.jpg" alt="">
+              <p>{{participate}}人抢到</p>
+              <button @click="bianTong(121)">立即去抢</button>
+            </div>
+          </div>
           <!-- 楼盘动态 -->
           <div class="loudong">
             <div class="title">
@@ -1023,7 +1037,7 @@
           <div class="img_box">
             <div class="hongbao_tit">
               <h1>恭喜你！获得</h1>
-              <p class="youhui">{{ logo_text }}专享年终大促购房优惠券</p>
+              <p class="youhui">{{ logo_text }}专享大促购房优惠券</p>
               <p class="p01">已有<em>861</em>人领取</p>
             </div>
             <img src="~/assets/tankuang/hongbao_tan.png" alt />
@@ -1260,6 +1274,7 @@ export default {
       count: data1.data.basic.count,
       collect: data1.collect,
       header: data1.common.header,
+      participate: data1.participate,
       current_city: data1.common.city_info.current,
       activity: activity,
       banner: banner,
@@ -1387,6 +1402,9 @@ export default {
       this.project_id_fan = pid;
 
       this.$refs.hong.showHong();
+    },
+    showguizi() {
+      this.$parent.$parent.guizi = true
     },
     activityShow() {
       this.$refs.rules.showRules();
@@ -1983,6 +2001,7 @@ export default {
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 91.1:
           this.$parent.$parent.baoming_tel.tan_title = "房源降价通知"; //ok
@@ -1990,6 +2009,7 @@ export default {
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 91.2:
           this.$parent.$parent.baoming_tel.tan_title = "变价通知我"; //ok
@@ -1997,6 +2017,7 @@ export default {
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 97:
           this.$parent.$parent.baoming_tel.tan_title = "了解户型详情"; //ok
@@ -2005,6 +2026,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/huxing.png");
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 97.1:
           this.$parent.$parent.baoming_tel.tan_title = "咨询详细户型"; //ok
@@ -2013,6 +2035,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/huxing.png");
+          this.$parent.$parent.btntxt = '立即咨询'
           break;
         case 92:
           this.$parent.$parent.baoming_tel.tan_title = "开盘提醒"; //ok
@@ -2021,6 +2044,7 @@ export default {
           this.$parent.$parent.baoming_tel.kaipan_time = this.basic.opentime;
 
           this.$parent.$parent.baoming_tel.default_show = false;
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 104:
           this.$parent.$parent.baoming_tel.tan_title = "在线咨询"; //ok
@@ -2029,6 +2053,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/bianjia.png");
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 94:
           this.$parent.$parent.baoming_tel.tan_title = "领取优惠"; //ok
@@ -2036,6 +2061,7 @@ export default {
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即领取'
           break;
         case 103:
           this.$parent.$parent.baoming_tel.tan_title = "预约看房"; //ok
@@ -2044,6 +2070,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/yukanfang.png");
+          this.$parent.$parent.btntxt = '立即预约'
           break;
         case 97:
           this.$parent.$parent.baoming_tel.tan_title = "咨询详细户型"; //ok
@@ -2051,6 +2078,7 @@ export default {
             "好楼盘户型是关键，咨询详细户型信息，安安心心买房";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即咨询'
           break;
         case 91:
           this.$parent.$parent.baoming_tel.tan_title = "变价通知我"; //ok
@@ -2058,6 +2086,7 @@ export default {
             "价格变动这么快？订阅楼盘变价通知，楼盘变价我们将第一时间通知您";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 92:
           this.$parent.$parent.baoming_tel.tan_title = "开盘提醒我"; //ok
@@ -2065,6 +2094,7 @@ export default {
             "一键订阅最新开盘通知，我们会第一时间通知您，不再错过开盘时间";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 98:
           this.$parent.$parent.baoming_tel.tan_title = "订阅楼盘动态"; //ok
@@ -2073,6 +2103,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/dingdong.png");
+          this.$parent.$parent.btntxt = '立即订阅'
           break;
         case 99:
           this.$parent.$parent.baoming_tel.tan_title = "楼盘资料免费领"; //ok
@@ -2081,6 +2112,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/fenzi.png");
+          this.$parent.$parent.btntxt = '立即领取'
           break;
         case 104:
           this.$parent.$parent.baoming_tel.tan_title = "向TA咨询"; //1
@@ -2096,6 +2128,7 @@ export default {
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
           this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/map.png");
+          this.$parent.$parent.btntxt = '立即领取'
           break;
         case 105:
           this.$parent.$parent.baoming_tel.tan_title = "最低真实成交价"; //1
@@ -2103,6 +2136,16 @@ export default {
             "获取最新成交价格，看看房友都是什么价格买的房";
           this.$parent.$parent.baoming_tel.default_show = true;
           this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.btntxt = '立即获取'
+          break;
+        case 121:
+          this.$parent.$parent.baoming_tel.tan_title = ""; //1
+          this.$parent.$parent.baoming_tel.tan_content =
+            "本平台成交项目即送苹果 <strong>12 pro max</strong> 一台，平台合计1000台手机送完为止";
+          this.$parent.$parent.baoming_tel.default_show = true;
+          this.$parent.$parent.baoming_tel.kaipan_show = false;
+          this.$parent.$parent.baoming_tel.tan_img = require("~/assets/tankuang/tan-phone.jpg");
+          this.$parent.$parent.btntxt = '立即抢'
           break;
       }
 
