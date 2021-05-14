@@ -28,7 +28,8 @@ const store = () => new Vuex.Store({
       242:"langfang",
       253: "nantong",
       191: "yichang",
-      129: 'qiannan'
+      129: 'qiannan',
+      291: 'kunming'
     },
      kid:'',
      other:'',
@@ -112,7 +113,8 @@ const store = () => new Vuex.Store({
           3: "贵阳市",
           149: "无锡市",
           191: "宜昌市",
-          129: '黔南市'
+          129: '黔南州',
+          291: '昆明市'
         };
         let city_head_arr = {
           112: "xuzhou",
@@ -127,7 +129,8 @@ const store = () => new Vuex.Store({
           3: "guiyang",
           149: "wuxi",
           191: "yichang",
-          129: 'qiannan'
+          129: 'qiannan',
+          291: 'kunming'
         };
       let token = null;
       let city_id = null;
@@ -234,6 +237,8 @@ const store = () => new Vuex.Store({
         commit('setCityId', 191);
       } else if ((host.indexOf('qiannan') != -1) == true) { //包含南通
         commit('setCityId', 129);
+      } else if ((host.indexOf('kunming') != -1) == true) { //包含南通
+        commit('setCityId', 291);
       }
         
         if(host.indexOf('www.jy1980') != -1){

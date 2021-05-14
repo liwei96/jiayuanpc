@@ -663,7 +663,7 @@ export default {
      let uuid = localStorage.getItem('uuid');
       console.log(uuid);
       if(uuid!=="undefined" && uuid!=="null"){
-          const wsurl = `ws://39.98.227.114:9509?uuid=${uuid}`;
+          const wsurl = `ws://ws.jy1980.com?uuid=${uuid}`;
           this.websock = new ReconnectingWebSocket(wsurl);
           this.websock.onmessage = this.websocketonmessage;
           this.websock.onopen = this.websocketonopen;

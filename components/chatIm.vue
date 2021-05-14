@@ -694,7 +694,7 @@ export default {
       let yewu_yuan = localStorage.getItem("yewu_yuan");
       if (this.active_id !== 1) {
       } else {
-        let city = this.$cookies.get("city_id");
+        let city = this.$store.state.city_id;
         let ip = ip_arr["ip"];
         let data_shang = {
           controller: "Info",
@@ -713,7 +713,7 @@ export default {
     initWebSocket() {
       let uuid = localStorage.getItem("uuid");
       if (uuid && uuid !== "undefined" && uuid !== "null") {
-        const wsurl = `ws://39.98.227.114:9509?uuid=${uuid}`;
+        const wsurl = `ws://ws.jy1980.com?uuid=${uuid}`;
         if (this.haslian == true) {
           this.websock = new ReconnectingWebSocket(wsurl);
           this.haslian = false;
@@ -760,7 +760,7 @@ export default {
         project = 0;
       }
 
-      let city = this.$cookies.get("city_id");
+      let city = this.$store.state.city_id;
       let ip = ip_arr["ip"];
       let data_shang = {
         controller: "Info",
@@ -839,7 +839,7 @@ export default {
             project = 0;
           }
 
-          let city = this.$cookies.get("city_id");
+          let city = this.$store.state.city_id;
           let ip = ip_arr["ip"];
           let data_shang = {
             controller: "Info",

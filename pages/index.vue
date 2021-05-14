@@ -5,6 +5,7 @@
         :all="common.city_info.all"
         :telphone="common.phone"
         :butie ="activity_project.length>0"
+        :name="common.city_info.current.short"
         ref="header"
       ></my-header>
       <div class="back" >

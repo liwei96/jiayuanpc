@@ -776,6 +776,11 @@ export default {
       sessionStorage.setItem("city_id", 191);
       this.$cookies.set("city_id", 191);
       sessionStorage.setItem("city_name", "宜昌市");
+    } else if (host.indexOf("qiannan") != -1) {
+      //包含杭州
+      sessionStorage.setItem("city_id", 129);
+      this.$cookies.set("city_id", 129);
+      sessionStorage.setItem("city_name", "黔南州");
     }
 
     let mine = this.$store.state.style_mine;

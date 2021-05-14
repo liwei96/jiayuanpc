@@ -847,7 +847,7 @@ export default {
           localStorage.setItem('ye_id',sid);
       }
       if(sid && sid!=="undefined" && sid!=="null"){
-          const wsurl = `ws://39.98.227.114:9509?uuid=${sid}`;
+          const wsurl = `ws://ws.jy1980.com?uuid=${sid}`;
           if(this.haslian==true){
               // if( localStorage.getItem('has_lian')=='true'){
                   this.websock = new ReconnectingWebSocket(wsurl);
