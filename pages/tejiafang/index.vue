@@ -414,6 +414,10 @@ export default {
         }
    },
    mounted(){
+     this.$store.commit('setCityId', this.common.city_info.current.area_id)
+    $cookies.set('city_id',this.common.city_info.current.area_id)
+    sessionStorage.setItem('city_name',this.common.city_info.current.short)
+    sessionStorage.setItem('city_id',this.common.city_info.current.area_id)
       this.lang();
    }
 }

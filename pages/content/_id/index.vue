@@ -2495,6 +2495,10 @@ export default {
     this.getWidth();
   },
   mounted() {
+    this.$store.commit('setCityId', this.current_city.area_id)
+    $cookies.set('city_id',this.current_city.area_id)
+    sessionStorage.setItem('city_name',this.current_city.short)
+    sessionStorage.setItem('city_id',this.current_city.area_id)
     window.addEventListener("scroll", this.showliu);
     let truePrice = this.truePrice;
     if (truePrice.length !== 0) {

@@ -66,7 +66,8 @@ export default {
     { src: "~/plugins/vue-monoplasty-slide-verify.js" ,ssr: false},
     { src: "~/plugins/vue-cookies.js" ,ssr: false},
     { src: "~/plugins/vue-baidu-map.js" ,ssr: false},
-    { src:"~/plugins/route.js",ssr:false}
+    { src:"~/plugins/route.js",ssr:false},
+    { src:"~/plugins/axios.js",ssr:true}
     // { src: "@/plugins/vue-awesome-swiper", ssr: false }
   ],
   /*

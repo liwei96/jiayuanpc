@@ -895,6 +895,10 @@ export default {
       }
   },
   mounted() {
+    this.$store.commit('setCityId', this.city.current.area_id)
+    $cookies.set('city_id',this.city.current.area_id)
+    sessionStorage.setItem('city_name',this.city.current.short)
+    sessionStorage.setItem('city_id',this.city.current.area_id)
     // console.log('allowance_num',this.allowance_num);
     if(this.info.length>0)
     {

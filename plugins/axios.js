@@ -10,12 +10,20 @@ export default function ({
   
     $axios.onRequest(config => {
       if (config.method == 'get') {
-        console.log(config.query);
-        config.params.host = store.state.hostname
+        if (config.params) {
+          config.params.pinyin = store.state.pinyin
+        } else {
+          config.params = {
+            pinyin: store.state.pinyin
+          }
+        }
+        
+        console.log(config.params)
+        // config.params.pinyin = store.state.pinyin
       }
         return config
     })
-    $axios.onError(error => {      
-    	console.log(error)
+    $axios.onError(error => {
+      console.log(error)
     })
   }

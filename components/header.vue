@@ -172,23 +172,40 @@ export default {
   },
   mounted() {
     document.addEventListener("click", this.cityBoxHidden, false);
-    let city_name = this.name;
+    let city_name = sessionStorage.getItem('city_name');
     let token = localStorage.getItem("token");
     var tel = localStorage.getItem("tel");
     var old_tel = localStorage.getItem("old_tel");
     let city_id = sessionStorage.getItem("city_id");
+    if(city_name){
+          this.city_name =city_name;
+        }
     //原本的，用后加上
-    //  if(city_name){
-    //    this.city_name =city_name;
-    //  }else{
-    //     this.city_name ="杭州市";
-    //  }
-
+      setTimeout(()=>{
+        let city_name = sessionStorage.getItem('city_name');
+        if(city_name){
+          this.city_name =city_name;
+        }else{
+            this.city_name ="杭州";
+        }
+      },700)
     let mine = this.$store.state.style_mine;
     this.mine = mine;
 
     //审核用 ，用后删掉
     let host = window.location.host;
+    // let cityname = host.split('.')[0]
+    // if (cityname == 'localhost:3012') {
+    //   cityname = 'guiyang'
+    // }else if (cityname == 'www') {
+    //   cityname = 'hangzhou'
+    // }
+    // console.log(cityname)
+    // for (let item of this.all) {
+    //   if (item.pinyin == cityname) {
+    //     this.city_name = item.short
+    //   }
+    // }
     if (host.indexOf("xuzhou") != -1) {
       //包含徐州
       this.city_name = "徐州市";
@@ -252,11 +269,35 @@ export default {
     } else if ((host.indexOf("kunming") != -1) == true) {
       //包含南通市
       this.city_name = "昆明市";
-      console.log("kunming");
-    } else {
-      this.city_name = "杭州市";
-    }
-
+    } else if ((host.indexOf("huangshan") != -1) == true) {
+      //包含南通市
+      this.city_name = "黄山市";
+    } else if ((host.indexOf("suzhou") != -1) == true) {
+      //包含南通市
+      this.city_name = "苏州市";
+    } else if ((host.indexOf("shanghai") != -1) == true) {
+      //包含南通市
+      this.city_name = "上海市";
+    } else if ((host.indexOf("xishuangbanna") != -1) == true) {
+      //包含南通市
+      this.city_name = "西双版纳";
+    } else if ((host.indexOf("yangjiang") != -1) == true) {
+      //包含南通市
+      this.city_name = "阳江市";
+    } else if ((host.indexOf("qinzhou") != -1) == true) {
+      //包含南通市
+      this.city_name = "钦州市";
+    } else if ((host.indexOf("huizhou") != -1) == true) {
+      //包含南通市
+      this.city_name = "惠州市";
+    } else if ((host.indexOf("nanning") != -1) == true) {
+      //包含南通市
+      this.city_name = "南宁市";
+    } else if ((host.indexOf("wenchang") != -1) == true) {
+      //包含南通市
+      this.city_name = "文昌市";
+    } 
+    
     //之后加的
     if ((host.indexOf("www.jy1980") != -1) == true) {
       sessionStorage.setItem("city_name", "杭州市");
@@ -297,13 +338,13 @@ export default {
       .sel_city {
         float: left;
         height: 21px;
-        width: 75px;
+        width: 90px;
         padding-left: 10px;
         border-left: 1px solid #666666;
         margin-top: 30px;
         margin-left: 31px;
         line-height: 16px;
-        margin-right: 33px;
+        margin-right: 18px;
         cursor: pointer;
         span {
           font-size: 21px;

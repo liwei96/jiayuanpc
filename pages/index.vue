@@ -354,18 +354,27 @@ export default {
       ]
     };
   },
-  async asyncData({ app, query, params, store }) {
+  async asyncData({ app, query, params, store, error }) {
     let uuid = query.uuid;
       if(uuid && uuid!=="undefined" && uuid!=="null"){
         uuid =uuid;
       }else{
          uuid="";
       }
+      console.log(store.state.pinyin)
     let [data,lunbo] = await Promise.all([
       app.$axios
         .get(
-          `/jy/pc/first?token=${store.state.token}&city=${store.state.city_id}&uuid=${uuid}`
-        )
+          // `/jy/pc/first?token=${store.state.token}&city=${store.state.city_id}&uuid=${uuid}`
+          `/jy/pc/first`
+        ,{
+          params: {
+            token: store.state.token,
+            city: store.state.city_id,
+            uuid: uuid,
+            // token: store.state.token,
+          }
+        })
         .then((res) => {
           if (res.data.code == 200) {
             let data = res.data;
@@ -819,7 +828,10 @@ export default {
     },
   },
   mounted() {
-
+    this.$store.commit('setCityId', this.current_city.area_id)
+    $cookies.set('city_id',this.current_city.area_id)
+    sessionStorage.setItem('city_name',this.current_city.short)
+    sessionStorage.setItem('city_id',this.current_city.area_id)
     document.addEventListener("click", this.hideSouBox, false);
     this.routerData = this.$route.matched;
     console.log(ip_arr["ip"]);

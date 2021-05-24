@@ -10,7 +10,8 @@ const store = () => new Vuex.Store({
     bottom_tui_san: '',
     com_all_tel: '',
     apartments_leng: '',
-    city_list:{
+    pinyin: '',
+    city_list: {
       112: "xuzhou",
       1: "hangzhou",
       36: "ningbo",
@@ -21,21 +22,21 @@ const store = () => new Vuex.Store({
       41: "chongqing",
       47: "chengdu",
       3: "guiyang",
-      149:"wuxi",
-      181:'zhaoqing',
-      216:"shangrao",
-      229:"nanchang",
-      242:"langfang",
+      149: "wuxi",
+      181: 'zhaoqing',
+      216: "shangrao",
+      229: "nanchang",
+      242: "langfang",
       253: "nantong",
       191: "yichang",
       129: 'qiannan',
       291: 'kunming'
     },
-     kid:'',
-     other:'',
-     uuid:'',
-     style_mine:0,
-     hostname:""
+    kid: '',
+    other: '',
+    uuid: '',
+    style_mine: 0,
+    hostname: ""
   },
   mutations: {
     setToken(state, data) {
@@ -59,20 +60,23 @@ const store = () => new Vuex.Store({
     setCityList(state, data) {
       state.city_list == data;
     },
-    setKid(state,data){
-       state.kid = data;
+    setKid(state, data) {
+      state.kid = data;
     },
-    setOther(state,data){
+    setOther(state, data) {
       state.other = data;
     },
-    setUuid(state,data){
-      state.uuid =data;
+    setUuid(state, data) {
+      state.uuid = data;
     },
-    setStyle(state,data){
-        state.style_mine = data;
+    setStyle(state, data) {
+      state.style_mine = data;
     },
-    setHost(state,data){
-       state.hostname = data;
+    setHost(state, data) {
+      state.hostname = data;
+    },
+    setpinyin(state, data) {
+      state.pinyin = data;
     }
 
   },
@@ -101,43 +105,61 @@ const store = () => new Vuex.Store({
       store
     }) {
       let city_name_arr = {
-          112: "徐州市",
-          1: "杭州市",
-          36: "宁波市",
-          38: "嘉兴市",
-          104: "湖州市",
-          73: "绍兴市",
-          93: "湛江市",
-          41: "重庆市",
-          47: "成都市",
-          3: "贵阳市",
-          149: "无锡市",
-          191: "宜昌市",
-          129: '黔南州',
-          291: '昆明市'
-        };
-        let city_head_arr = {
-          112: "xuzhou",
-          1: "hangzhou",
-          36: "ningbo",
-          38: "jiaxing",
-          104: "huzhou",
-          73: "shaoxing",
-          93: "zhanjiang",
-          41: "chongqing",
-          47: "chengdu",
-          3: "guiyang",
-          149: "wuxi",
-          191: "yichang",
-          129: 'qiannan',
-          291: 'kunming'
-        };
+        112: "徐州市",
+        1: "杭州市",
+        36: "宁波市",
+        38: "嘉兴市",
+        104: "湖州市",
+        73: "绍兴市",
+        93: "湛江市",
+        41: "重庆市",
+        47: "成都市",
+        3: "贵阳市",
+        149: "无锡市",
+        191: "宜昌市",
+        129: '黔南州',
+        291: '昆明市',
+        206: '黄山',
+        262: '苏州',
+        273: '上海',
+        306: '西双版纳',
+        310: '阳江',
+        316: '钦州',
+        321: '惠州',
+        327: '南宁',
+        341: '文昌'
+      };
+      let city_head_arr = {
+        112: "xuzhou",
+        1: "hangzhou",
+        36: "ningbo",
+        38: "jiaxing",
+        104: "huzhou",
+        73: "shaoxing",
+        93: "zhanjiang",
+        41: "chongqing",
+        47: "chengdu",
+        3: "guiyang",
+        149: "wuxi",
+        191: "yichang",
+        129: 'qiannan',
+        291: 'kunming',
+        206: 'huangshan',
+        262: 'suzhou',
+        273: 'shanghai',
+        306: 'xishuangbanna',
+        310: 'yangjiang',
+        316: 'qinzhou',
+        321: 'huizhou',
+        327: 'nanning',
+        341: 'wenchang',
+      };
       let token = null;
       let city_id = null;
       let ip = null;
       let kid = null;
-      let other =null;
-      let uuid =null;
+      let other = null;
+      let uuid = null;
 
       let cookiesList = req.headers.cookie;
       if (cookiesList) {
@@ -151,36 +173,44 @@ const store = () => new Vuex.Store({
         city_id = obj['city_id'];
         kid = obj['kid'];
         other = obj['other'];
-        uuid  = obj['uuid'];
-        if(!city_id){
-          commit('setCityId', 1);
-          console.log('默认')
-        }else{
-          commit('setCityId', city_id);
-        }
-     
+        uuid = obj['uuid'];
+        // if (!city_id) {
+        //   commit('setCityId', null);
+        //   console.log('默认')
+        // } else {
+        //   commit('setCityId', city_id);
+        //   console.log(7777, city_id)
+        // }
+
 
         ip = obj['ip'];
-        if(ip){
+        if (ip) {
           commit('setIp', ip);
-        }else{
-          axios.get('http://ip-api.com/json').then(res=>{
-              console.log(res.data.query,'ip')
-              commit('setIp', res.data.query);
-           })
+        } else {
+          axios.get('http://ip-api.com/json').then(res => {
+            console.log(res.data.query, 'ip')
+            commit('setIp', res.data.query);
+          })
         }
-       // commit('setCityId', city_id);
+        // commit('setCityId', city_id);
         commit('setToken', token);
-        commit('setKid',kid);
-        commit('setOther',other);
-        commit('setUuid',uuid);
-      
+        commit('setKid', kid);
+        commit('setOther', other);
+        commit('setUuid', uuid);
+
       }
 
-
+      console.log(req,req.headers)
       let host = req.headers.host;
-      commit("setHost",host);
-      console.log(host,'store_host')
+      let cityname = host.split('.')[0]
+      if (cityname == 'www') {
+        cityname = 'hangzhou'
+      } else if (cityname == 'yunpcim') {
+        cityname = 'guiyang'
+      }
+      commit("setHost", host);
+      commit("setpinyin", cityname);
+      console.log(host, 'store_host')
       //嘉兴注释
       // if(host.indexOf('www.jy1980') != -1){
       //   commit('setCityId', 1);
@@ -188,13 +218,12 @@ const store = () => new Vuex.Store({
       //   commit('setCityId', 1);
       // }//测试用
       // else
-      
-      if(host.indexOf('www.jy1980') != -1){ //审核用
-         commit('setCityId', 1);
-      }
-       else 
+
+      if (host.indexOf('www.jy1980') != -1) { //审核用
+        commit('setCityId', 1);
+      } else
       if ((host.indexOf('xuzhou') != -1) == true) { //包含徐州
-         commit('setCityId', 112);
+        commit('setCityId', 112);
       } else
       if ((host.indexOf('hangzhou') != -1) == true) { //包含杭州
         commit('setCityId', 1);
@@ -219,11 +248,9 @@ const store = () => new Vuex.Store({
         commit('setCityId', 47);
       } else if ((host.indexOf('guiyang') != -1) == true) { //包含贵阳
         commit('setCityId', 3);
-      }
-      else if ((host.indexOf('wuxi') != -1) == true) { //包含无锡
+      } else if ((host.indexOf('wuxi') != -1) == true) { //包含无锡
         commit('setCityId', 149);
-      }
-      else if ((host.indexOf('zhaoqing') != -1) == true) { //包含肇庆
+      } else if ((host.indexOf('zhaoqing') != -1) == true) { //包含肇庆
         commit('setCityId', 181);
       } else if ((host.indexOf('shangrao') != -1) == true) { //包含上饶
         commit('setCityId', 216);
@@ -231,7 +258,7 @@ const store = () => new Vuex.Store({
         commit('setCityId', 229);
       } else if ((host.indexOf('langfang') != -1) == true) { //包含廊坊
         commit('setCityId', 242);
-      }else if ((host.indexOf('nantong') != -1) == true) { //包含南通
+      } else if ((host.indexOf('nantong') != -1) == true) { //包含南通
         commit('setCityId', 253);
       } else if ((host.indexOf('yichang') != -1) == true) { //包含南通
         commit('setCityId', 191);
@@ -239,20 +266,39 @@ const store = () => new Vuex.Store({
         commit('setCityId', 129);
       } else if ((host.indexOf('kunming') != -1) == true) { //包含南通
         commit('setCityId', 291);
+      } else if ((host.indexOf('huangshan') != -1) == true) { //包含南通
+        commit('setCityId', 206);
+      } else if ((host.indexOf('suzhou') != -1) == true) { //包含南通
+        commit('setCityId', 262);
+      } else if ((host.indexOf('shanghai') != -1) == true) { //包含南通
+        commit('setCityId', 273);
+      } else if ((host.indexOf('xishuangbanna') != -1) == true) { //包含南通
+        commit('setCityId', 306);
+      } else if ((host.indexOf('yangjiang') != -1) == true) { //包含南通
+        commit('setCityId', 310);
+      } else if ((host.indexOf('qinzhou') != -1) == true) { //包含南通
+        commit('setCityId', 316);
+      } else if ((host.indexOf('huizhou') != -1) == true) { //包含南通
+        commit('setCityId', 321);
+      } else if ((host.indexOf('nanning') != -1) == true) { //包含南通
+        commit('setCityId', 327);
       }
-        
-        if(host.indexOf('www.jy1980') != -1){
-            console.log('家园样式');
-            commit('setStyle',0);
-        }else if(host.indexOf('edefang.net') != -1){
-            console.log('易得房样式');
-            commit('setStyle',1);
-        }
+      //  else if ((host.indexOf('wenchang') != -1) == true) {
+      //    commit('setCityId', 341);
+      //  }
+
+      if (host.indexOf('www.jy1980') != -1) {
+        console.log('家园样式');
+        commit('setStyle', 0);
+      } else if (host.indexOf('edefang.net') != -1) {
+        console.log('易得房样式');
+        commit('setStyle', 1);
+      }
       //  axios.get('http://ip-api.com/json').then(res=>{
       //  //  console.log(res.data.query,'ip')
       //    commit('setIp', res.data.query);
       // })
-    
+
       // console.log(token,city_id,ip);
       // 将cookie转成json对象（自己实现该方法）
       //let token = cookieparse(cookie).token;
