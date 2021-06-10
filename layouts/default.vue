@@ -409,6 +409,18 @@
         </div>
       </div>
     </transition>
+    <div class="liuyansure" v-if="liuyan_box.sure_flag">
+      <h3>留言提问</h3>
+      <div class="guan" @click="liuyan_box.sure_flag = false">
+        <i class="iconfont iconchahao" id="fan_close"></i>
+      </div>
+      <p class="msg">验证码已发送到{{ telmsg }} 请注意查看</p>
+      <div class="inputbox">
+        <input type="text" placeholder="请输入验证码" v-model="code" />
+        <p @click="getcodes">{{ erma_tel.yanText }}</p>
+      </div>
+      <button @click="checksure">确定</button>
+    </div>
     <!-- 活动规则弹框 -->
     <div class="rules_box" v-show="rule_model">
       <div class="rules">
@@ -451,11 +463,10 @@
         </h4>
         <div class="content_box">
           <p>
-            即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
+            即日起，凡是通过本线上营销中心成交的本项目，即送苹果12 pro
+            max一台，平台合计1000台手机送完为止。具体活动详情来电咨询
           </p>
-          <p>
-             注：活动最终解释权归{{ logo_text }}所有
-          </p>
+          <p>注：活动最终解释权归{{ logo_text }}所有</p>
         </div>
       </div>
     </div>
@@ -498,7 +509,7 @@ export default {
   },
   data() {
     return {
-      btntxt: '立即订阅',
+      btntxt: "立即订阅",
       guizi: false,
       loginTan: false,
       checked: true,
@@ -604,6 +615,7 @@ export default {
       right_fixed: false,
 
       logo_text: "家园",
+      telmsg: "",
     };
   },
   computed: {},
@@ -660,7 +672,7 @@ export default {
         if (val.telflag == true) {
           sessionStorage.setItem("isliu", 1);
         } else {
-          this.btntxt = '立即订阅'
+          this.btntxt = "立即订阅";
           sessionStorage.removeItem("isliu");
           if (sessionStorage.getItem("isim")) {
             sessionStorage.removeItem("isim");
@@ -1020,6 +1032,36 @@ export default {
       };
       this.$refs.chat.websocketsend(JSON.stringify(data_shang));
     },
+    checksure() {
+      var pattern = new RegExp("^1[345678]\\d{9}$");
+      let phone = this.liu_tel_phone;
+      if (phone == "") {
+        this.$message.error("手机号不能为空");
+      } else if (!pattern.test(phone)) {
+        this.$message.error("请输入正确的手机号");
+      } else if (this.code == "") {
+        this.$message.error("请输入验证码");
+      } else {
+        var ip = ip_arr["ip"];
+        axios({
+          method: "post",
+          url: "/sure",
+          params: {
+            phone: phone,
+            code: this.code, //短信验证码
+            source: 3, //传3
+            ip: ip,
+          },
+        }).then((res) => {
+          if (res.data.code == 200) {
+            this.$message.success(res.data.message);
+            this.liuyan_box.sure_flag = false;
+          } else {
+            this.$message.error(res.data.message);
+          }
+        });
+      }
+    },
     tiJiaoLiu() {
       let phone = this.liu_tel_phone;
       var other = sessionStorage.getItem("other");
@@ -1089,6 +1131,27 @@ export default {
               if (res.data.code == 200) {
                 this.$message.success(res.data.message);
                 this.liuyan_box.liu_flag = false;
+                this.liuyan_box.sure_flag = true;
+                let that = this;
+                var time = 60;
+                clearInterval(this.sendTimer);
+                this.sendTimer = setInterval(function () {
+                  time--;
+                  if (time > 0) {
+                    that.erma_tel.yanText = time + "秒后重送";
+                  } else if (time == 0) {
+                    that.flag = true;
+                    clearInterval(this.sendTimer);
+                    that.erma_tel.yanText = "获取验证码";
+                    this.sendTimer = null;
+                  }
+                }, 1000);
+
+                this.telmsg = phone.substr(0, 3) + "****" + phone.substr(7);
+                this.getcodes();
+                this.flag = false;
+              } else {
+                this.$message.error(res.data.message);
               }
             })
             .catch((error) => {
@@ -1097,6 +1160,39 @@ export default {
         }
       } else {
         this.$message.error("留言内容不能为空");
+      }
+    },
+    getcodes() {
+      let phone = this.liu_tel_phone;
+      let ip = ip_arr["ip"];
+      if (phone && ip && this.flag) {
+        axios({
+          method: "post",
+          url: "/send",
+          params: {
+            phone: phone,
+            ip: ip,
+            source: 3,
+          },
+        })
+          .then((res) => {
+            if (res.data.code == 200) {
+              this.$cookies.remove("time");
+              this.$message.success(res.data.message);
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              console.log(error.response.data);
+              this.$message.error(error.response.data.msg);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else {
+              console.log(error.message);
+            }
+          });
       }
     },
     showSaoMa() {
@@ -1489,7 +1585,7 @@ export default {
         }
       }, 1000);
 
-      var phone = this.baoming_tel.telphone;
+      var phone = this.baoming_tel.telphone || this.liu_tel_phone;
       var ip = ip_arr["ip"];
       if (phone && ip) {
         axios({
@@ -3224,7 +3320,94 @@ export default {
     }
   }
 }
-
+// 留言确定
+.liuyansure {
+  width: 260px;
+  height: 220px;
+  background: #ffffff;
+  box-shadow: 0px 0px 30px 0px rgba(4, 0, 0, 0.08);
+  border-radius: 4px;
+  position: fixed;
+  z-index: 500;
+  right: 20px;
+  padding: 0 20px;
+  bottom: 103px;
+  .guan {
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    cursor: pointer;
+    i {
+      font-size: 18px;
+      text-align: center;
+      line-height: 24px;
+      color: #fff;
+    }
+  }
+  .guan:hover {
+    transform: rotate(90deg);
+    transition: all 0.6s;
+  }
+  h3 {
+    text-align: center;
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #333333;
+    padding-top: 28px;
+    margin-bottom: 22px;
+  }
+  .msg {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #999999;
+    margin-bottom: 12px;
+  }
+  .inputbox {
+    height: 40px;
+    border-radius: 4px;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    input {
+      border: 0;
+      outline: none;
+      background-color: #f7f7f7;
+      margin-left: 14px;
+      max-width: 158px;
+    }
+    p {
+      margin-left: auto;
+      margin-right: 14px;
+      font-size: 14px;
+      font-family: Microsoft YaHei;
+      font-weight: 400;
+      color: #7495bd;
+    }
+  }
+  button {
+    width: 260px;
+    height: 34px;
+    background: linear-gradient(45deg, #2ac682, #46c4ab);
+    border-radius: 4px;
+    text-align: center;
+    line-height: 34px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+  }
+}
 /*活动规则弹框*/
 .rules_box {
   width: 100%;

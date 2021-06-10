@@ -18,7 +18,6 @@ export default function ({
           }
         }
         
-        console.log(config.params)
         // config.params.pinyin = store.state.pinyin
       }
         return config

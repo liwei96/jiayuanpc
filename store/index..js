@@ -200,7 +200,6 @@ const store = () => new Vuex.Store({
 
       }
 
-      console.log(req,req.headers)
       let host = req.headers.host;
       let cityname = host.split('.')[0]
       if (cityname == 'www') {
@@ -210,7 +209,6 @@ const store = () => new Vuex.Store({
       }
       commit("setHost", host);
       commit("setpinyin", cityname);
-      console.log(host, 'store_host')
       //嘉兴注释
       // if(host.indexOf('www.jy1980') != -1){
       //   commit('setCityId', 1);
